@@ -121,8 +121,8 @@ specific geographical distance with a radius of `$radiusInKm` from a given posta
 
 	// build the query
 	$queryBuilder
-		->select("poi, GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) AS HIDDEN distance")
-		->where("GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) <= :radius")
+		->select('poi, GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) AS HIDDEN distance')
+		->having('distance <= :radius')
 		->setParameter('country', $country)
 		->setParameter('postalCode', $postalCode)
 		->setParameter('radius', $radiusInKm)
