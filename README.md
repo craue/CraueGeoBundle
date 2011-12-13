@@ -85,7 +85,7 @@ Go to http://download.geonames.org/export/zip/ and download the archives for the
 
 Create a fixture class (in a separate folder to be able to load only this one) which extends the provided base class:
 
-	namespace MyVendor\MyBundle\Doctrine\Fixtures\CraueGeo;
+	namespace MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo;
 
 	use Craue\GeoBundle\Doctrine\Fixtures\GeonamesPostalCodeData;
 
@@ -100,7 +100,7 @@ Create a fixture class (in a separate folder to be able to load only this one) w
 
 Now, backup your database! Then import the fixture and remember to use the `--append` parameter.
 
-	php app/console doctrine:fixtures:load --append --fixtures="src/MyVendor/MyBundle/Doctrine/Fixtures/CraueGeo"
+	php app/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
 
 That's it. Of course you can use other data sources you have access to, and write a custom fixture to import it.
 
