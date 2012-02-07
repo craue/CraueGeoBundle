@@ -32,7 +32,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 		$currentBatchEntries = array();
 
 		$fcontents = file($filename);
-		for ($i = 0; $i < sizeof($fcontents); ++$i) {
+		for ($i = 0, $numLines = count($fcontents); $i < $numLines; ++$i) {
 			$line = trim($fcontents[$i]);
 			$arr = explode("\t", $line);
 
@@ -69,6 +69,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 				echo '.'; // progress indicator
 			}
 		}
+		echo "\n";
 	}
 
 }
