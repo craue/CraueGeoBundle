@@ -16,12 +16,13 @@ This bundle should be used in conjunction with Symfony2.
 Either by using a Git submodule:
 
 ```
+# in a shell
 git submodule add https://github.com/craue/CraueGeoBundle.git vendor/bundles/Craue/CraueGeoBundle
 ```
 
 Or by using the `deps` file:
 
-```
+```ini
 [CraueGeoBundle]
 git=https://github.com/craue/CraueGeoBundle.git
 target=bundles/Craue/GeoBundle
