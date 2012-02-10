@@ -15,7 +15,7 @@ This bundle should be used in conjunction with Symfony2.
 
 Either by using a Git submodule:
 
-```
+```sh
 # in a shell
 git submodule add https://github.com/craue/CraueGeoBundle.git vendor/bundles/Craue/CraueGeoBundle
 ```
@@ -77,7 +77,7 @@ database first.
 
 The `GeoPostalCode` entity provided contains the structure for the geographical data. You import it by calling either
 
-```
+```sh
 # in a shell
 php app/console doctrine:migrations:diff
 php app/console doctrine:migrations:migrate
@@ -85,7 +85,7 @@ php app/console doctrine:migrations:migrate
 
 or
 
-```
+```sh
 # in a shell
 php app/console doctrine:schema:update
 ```
@@ -122,7 +122,7 @@ class MyGeonamesPostalCodeData extends GeonamesPostalCodeData {
 
 Now, backup your database! Then import the fixture and remember to use the `--append` parameter.
 
-```
+```sh
 # in a shell
 php app/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
 ```
