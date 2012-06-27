@@ -120,7 +120,8 @@ class MyGeonamesPostalCodeData extends GeonamesPostalCodeData {
 }
 ```
 
-Now, backup your database! Then import the fixture and remember to use the `--append` parameter.
+Now, backup your database! Don't blame anyone else for data loss if something goes wrong.
+Then import the fixture and remember to use the `--append` parameter.
 
 ```sh
 # in a shell
@@ -128,6 +129,9 @@ php app/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBund
 ```
 
 That's it. Of course you can use other data sources you have access to, and write a custom fixture to import it.
+
+If you have out of memory issues when importing a large number of entries try adding the `--no-debug` switch to avoid
+logging every single Doctrine query.
 
 # Usage
 
