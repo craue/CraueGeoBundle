@@ -70,7 +70,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 			}
 		}
 
-		$manager->flush(); // Flush for the last batch which, in most cases, doesn't reach the batch size. (fixes #2)
+		$manager->flush(); // Flush for the last batch, which doesn't reach the batch size in most cases. (fixes #2)
 
 		echo "\n";
 	}
