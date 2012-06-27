@@ -26,6 +26,11 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 		$manager->flush();
 	}
 
+	/**
+	 * @param ObjectManager $manager
+	 * @param string $filename
+	 * @return integer Number of entries actually added.
+	 */
 	protected function addEntries(ObjectManager $manager, $filename) {
 		$repo = $this->getRepository($manager);
 
@@ -76,6 +81,8 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 		$manager->flush(); // Flush for the last batch, which doesn't reach the batch size in most cases. (fixes #2)
 
 		echo ' ', $entriesAdded, "\n";
+
+		return $entriesAdded;
 	}
 
 }
