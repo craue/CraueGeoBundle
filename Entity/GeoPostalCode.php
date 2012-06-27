@@ -92,6 +92,19 @@ class GeoPostalCode {
 	}
 
 	/**
+	 * Get the distance in Km between two GeoPostalCodes
+	 *
+	 * Roughly based on notes from query based version and
+	 * http://en.wikipedia.org/wiki/Great-circle_distance
+	 *
+	 * @return float
+	 */
+	public function getKmTo(GeoPostalCode $other) {
+		// ~6371 = Mean radius of Earth in KM
+		return 6371 * $this->getDeltaAngleTo($other);
+	}
+
+	/**
 	 * Get the distance in miles between two GeoPostalCodes
 	 *
 	 * Roughly based on notes from query based version and
@@ -100,13 +113,26 @@ class GeoPostalCode {
 	 * @return float
 	 */
 	public function getMilesTo(GeoPostalCode $other) {
+		// ~3959 = Mean radius of Earth in Miles
+		return 3959 * $this->getDeltaAngleTo($other);
+	}
+
+	/**
+	 * Get the distance in miles between two GeoPostalCodes
+	 *
+	 * Roughly based on notes from query based version and
+	 * http://en.wikipedia.org/wiki/Great-circle_distance
+	 *
+	 * @return float
+	 */
+	protected function getDeltaAngleTo(GeoPostalCode $other) {
 		// Convert to radians
 		$deltaLat = deg2rad($this->getLat() - $other->getLat());
 		$deltaLng = deg2rad($this->getLng() - $other->getLng());
 		$origLat  = deg2rad($this->getLat());
 		$destLat  = deg2rad($other->getLat());
 
-		return 3956 * 2 * asin(
+		return 2 * asin(
 			sqrt(
 				pow(sin($deltaLat / 2), 2) +
 				cos($origLat) *
