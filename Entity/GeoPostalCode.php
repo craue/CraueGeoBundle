@@ -91,4 +91,28 @@ class GeoPostalCode {
 		return $this->lng;
 	}
 
+	/**
+	 * Get the distance in miles between two GeoPostalCodes
+	 *
+	 * Roughly based on notes from query based version and
+	 * http://en.wikipedia.org/wiki/Great-circle_distance
+	 *
+	 * @return float
+	 */
+	public function getMilesTo(GeoPostalCode $other) {
+		// Convert to radians
+		$deltaLat = deg2rad($this->getLat() - $other->getLat());
+		$deltaLng = deg2rad($this->getLng() - $other->getLng());
+		$origLat  = deg2rad($this->getLat());
+		$destLat  = deg2rad($other->getLat());
+
+		return 3956 * 2 * asin(
+			sqrt(
+				pow(sin($deltaLat / 2), 2) +
+				cos($origLat) *
+				cos($destLat) *
+				pow(sin($deltaLng / 2), 2)
+			)
+		);
+	}
 }
