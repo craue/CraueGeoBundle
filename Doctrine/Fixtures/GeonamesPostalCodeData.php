@@ -29,6 +29,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 	protected function addEntries(ObjectManager $manager, $filename) {
 		$repo = $this->getRepository($manager);
 
+		$entriesAdded = 0;
 		$currentBatchEntries = array();
 
 		$fcontents = file($filename);
@@ -60,6 +61,8 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 			$entity->setLat((float) $arr[9]);
 			$entity->setLng((float) $arr[10]);
 			$manager->persist($entity);
+
+			++$entriesAdded;
 			$currentBatchEntries[] = $country.'-'.$postalCode;
 
 			if ((($i + 1) % $this->batchSize) === 0) {
@@ -72,7 +75,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 
 		$manager->flush(); // Flush for the last batch, which doesn't reach the batch size in most cases. (fixes #2)
 
-		echo "\n";
+		echo ' ', $entriesAdded, "\n";
 	}
 
 }
