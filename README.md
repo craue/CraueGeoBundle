@@ -160,3 +160,5 @@ $queryBuilder
 	->orderBy('distance')
 ;
 ```
+
+The `HIDDEN` keyword is available as of Doctrine 2.2.
