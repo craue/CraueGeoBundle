@@ -34,7 +34,6 @@ in a shell.
 ## Enable the bundle
 
 ```php
-<?php
 // in app/AppKernel.php
 public function registerBundles() {
 	$bundles = array(
@@ -95,7 +94,6 @@ Go to http://download.geonames.org/export/zip/ and download the archives for the
 Create a fixture class (in a separate folder to be able to load only this one) which extends the provided base class:
 
 ```php
-<?php
 // MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo/MyGeonamesPostalCodeData.php
 namespace MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo;
 
@@ -132,7 +130,6 @@ specific geographical distance with a radius of `$radiusInKm` from a given posta
 `$country`, and order them by distance.
 
 ```php
-<?php
 // example values which could come from a form, remember to validate/sanitize them first
 $country = 'DE';
 $postalCode = '10115';
