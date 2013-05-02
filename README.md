@@ -18,7 +18,7 @@ Let Composer download and install the bundle by first adding it to your composer
 ```json
 {
 	"require": {
-		"craue/geo-bundle": "dev-master"
+		"craue/geo-bundle": "~1.0.0"
 	}
 }
 ```
