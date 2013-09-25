@@ -1,13 +1,11 @@
 # Information
 
-CraueGeoBundle provides Doctrine functions which allow you to calculate geographical distances within database queries.
+CraueGeoBundle provides Doctrine functions for your Symfony2 project which allow you to calculate geographical distances within database queries.
 This bundle is independent of any web service, so once you got it running, it will keep running.
 There are two Doctrine functions, which return a distance in km:
 
 - `GEO_DISTANCE` takes latitude + longitude for origin and destination
 - `GEO_DISTANCE_BY_POSTAL_CODE` takes country + postal code for origin and destination
-
-This bundle should be used in conjunction with Symfony2.
 
 # Installation
 
@@ -18,7 +16,7 @@ Let Composer download and install the bundle by first adding it to your composer
 ```json
 {
 	"require": {
-		"craue/geo-bundle": "~1.0.0"
+		"craue/geo-bundle": "~1.0"
 	}
 }
 ```
