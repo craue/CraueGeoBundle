@@ -33,7 +33,7 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-0": {
-			"Craue\\GeoBundle": ""
+			"Craue\\GeoBundle\\": ""
 		}
 	},
 	"target-dir": "Craue/GeoBundle"
