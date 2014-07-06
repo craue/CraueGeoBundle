@@ -23,7 +23,7 @@
 		"doctrine/orm": "~2.3",
 		"doctrine/data-fixtures": "~1.0",
 		"doctrine/doctrine-bundle": "~1.0",
-		"phpunit/phpunit": "~4.0",
+		"phpunit/phpunit": "~4.1",
 		"symfony/symfony": "~2.0"
 	},
 	"suggest": {
