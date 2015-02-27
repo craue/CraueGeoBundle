@@ -9,5 +9,13 @@ if [ -n "${MIN_STABILITY:-}" ]; then
 fi
 
 composer remove --no-update symfony/framework-bundle
-composer require --no-update --dev symfony/symfony:${SYMFONY_VERSION}
-composer update
+
+if [ -n "${SYMFONY_VERSION:-}" ]; then
+	composer require --no-update --dev symfony/symfony:${SYMFONY_VERSION}
+fi
+
+if [ "${USE_DEPS:-}" = "lowest" ]; then
+	COMPOSER_UPDATE_ARGS="--prefer-lowest"
+fi
+
+composer update ${COMPOSER_UPDATE_ARGS:-}
