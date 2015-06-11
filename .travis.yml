@@ -12,11 +12,10 @@ env:
 
 matrix:
   include:
-      # cannot be tested with PHP 5.3.3 due to Composer running out of memory
-    - php: 5.4
+    - php: 5.3.3
       env: USE_DEPS="lowest"
     - php: 5.5
-      # cannot be tested with Symfony 2.0 due to lack of compatible doctrine/doctrine-bundle version
+      # cannot be tested with 2.0 due to lack of compatible doctrine/doctrine-bundle version
       env: SYMFONY_VERSION="2.1.*"
     - php: 5.5
       env: SYMFONY_VERSION="2.2.*"
