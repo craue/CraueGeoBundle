@@ -5,6 +5,7 @@ namespace Craue\GeoBundle\Tests;
 use Craue\GeoBundle\Entity\GeoPostalCode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Console\Input\ArrayInput;
@@ -39,9 +40,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param double $lat
 	 * @param double $lng
 	 * @param double $maxRadiusInKm
+	 * @param boolean $addRadiusOptimization
 	 * @return GeoPostalCode[]
 	 */
-	protected function getPoisPerGeoDistance($lat, $lng, $maxRadiusInKm = null) {
+	protected function getPoisPerGeoDistance($lat, $lng, $maxRadiusInKm = null, $addRadiusOptimization = false) {
 		$qb = static::getRepo()->createQueryBuilder('poi')
 			->select('poi, GEO_DISTANCE(:lat, :lng, poi.lat, poi.lng) AS distance')
 			->setParameter('lat', $lat)
@@ -50,6 +52,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 		;
 
 		if ($maxRadiusInKm !== null) {
+			if ($addRadiusOptimization) {
+				$this->addRadiusOptimization($qb, $lat, $lng, $maxRadiusInKm);
+			}
+
 			$qb
 				->having('distance <= :radius')
 				->setParameter('radius', $maxRadiusInKm)
@@ -63,9 +69,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param string $country
 	 * @param string $postalCode
 	 * @param double $maxRadiusInKm
+	 * @param boolean $addRadiusOptimization
 	 * @return GeoPostalCode[]
 	 */
-	protected function getPoisPerGeoDistanceByPostalCode($country, $postalCode, $maxRadiusInKm = null) {
+	protected function getPoisPerGeoDistanceByPostalCode($country, $postalCode, $maxRadiusInKm = null, $addRadiusOptimization = false) {
 		$qb = static::getRepo()->createQueryBuilder('poi')
 			->select('poi, GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) AS distance')
 			->setParameter('country', $country)
@@ -74,6 +81,19 @@ abstract class IntegrationTestCase extends WebTestCase {
 		;
 
 		if ($maxRadiusInKm !== null) {
+			if ($addRadiusOptimization) {
+				$qbOrigin = static::getRepo()->createQueryBuilder('poi')
+					->andWhere('poi.country = :country')
+					->andWhere('poi.postalCode = :postalCode')
+					->setParameter('country', $country)
+					->setParameter('postalCode', $postalCode)
+				;
+				$origin = $qbOrigin->getQuery()->getOneOrNullResult();
+				if ($origin !== null) {
+					$this->addRadiusOptimization($qb, $origin->getLat(), $origin->getLng(), $maxRadiusInKm);
+				}
+			}
+
 			$qb
 				->having('distance <= :radius')
 				->setParameter('radius', $maxRadiusInKm)
@@ -81,6 +101,29 @@ abstract class IntegrationTestCase extends WebTestCase {
 		}
 
 		return $qb->getQuery()->getResult();
+	}
+
+	/**
+	 * Adds the radius optimization mentioned in {@see http://www.scribd.com/doc/2569355/Geo-Distance-Search-with-MySQL} (pages 11-13) to
+	 * the given {@code QueryBuilder} instance.
+	 * @param QueryBuilder $qb
+	 * @param double $latOrigin
+	 * @param double $lngOrigin
+	 * @param double $maxRadiusInKm
+	 */
+	private function addRadiusOptimization(QueryBuilder $qb, $latOrigin, $lngOrigin, $maxRadiusInKm) {
+		$latDistance = 111.2; // distance between two latitudes is about 111.2 km
+		$latDiff = $maxRadiusInKm / $latDistance;
+		$lngDiff = $maxRadiusInKm / abs(cos(deg2rad($latOrigin)) * $latDistance);
+
+		$qb
+			->andWhere('poi.lat BETWEEN :lat1 AND :lat2')
+			->andWhere('poi.lng BETWEEN :lng1 AND :lng2')
+			->setParameter('lat1', $latOrigin - $latDiff)
+			->setParameter('lat2', $latOrigin + $latDiff)
+			->setParameter('lng1', $lngOrigin - $lngDiff)
+			->setParameter('lng2', $lngOrigin + $lngDiff)
+		;
 	}
 
 	/**
@@ -141,7 +184,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	}
 
 	/**
-	 * Persists a number of {@code GeoPostalCode}s using dummy data.
+	 * Persists a number of {@code GeoPostalCode}s using non-random dummy data.
 	 * @param integer $number
 	 */
 	protected static function persistDummyGeoPostalCodes($number) {
@@ -154,6 +197,11 @@ abstract class IntegrationTestCase extends WebTestCase {
 			$entity->setLat('52.'.$i);
 			$entity->setLng('13.'.$i);
 			$em->persist($entity);
+
+			if ((($i + 1) % 10000) === 0) {
+				$em->flush();
+				$em->clear();
+			}
 		}
 
 		$em->flush();

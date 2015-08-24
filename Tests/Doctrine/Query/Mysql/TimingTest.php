@@ -13,7 +13,7 @@ use Craue\GeoBundle\Tests\IntegrationTestCase;
  */
 class TimingTest extends IntegrationTestCase {
 
-	const NUMBER_OF_POIS = 10000;
+	const NUMBER_OF_POIS = 50000;
 
 	/**
 	 * {@inheritDoc}
@@ -33,16 +33,25 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistance(52.1, 13.1, 1);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(0.1, $duration);
+		$this->assertLessThan(0.3, $duration);
 
-		$this->assertLessThan(static::NUMBER_OF_POIS, count($result));
+		$this->assertEquals(853, count($result));
+	}
+
+	public function testTimingGeoDistance_withRadius_optimized() {
+		$startTime = microtime(true);
+		$result = $this->getPoisPerGeoDistance(52.1, 13.1, 1, true);
+		$duration = microtime(true) - $startTime;
+		$this->assertLessThan(0.3, $duration);
+
+		$this->assertEquals(853, count($result));
 	}
 
 	public function testTimingGeoDistance_withoutRadius() {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistance(52.1, 13.1);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(4, $duration);
+		$this->assertLessThan(12, $duration);
 
 		$this->assertCount(static::NUMBER_OF_POIS, $result);
 	}
@@ -51,16 +60,25 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123', 1);
 		$duration = microtime(true) - $startTime;
+		$this->assertLessThan(2.1, $duration);
+
+		$this->assertEquals(1701, count($result));
+	}
+
+	public function testTimingGeoDistanceByPostalCode_withRadius_optimized() {
+		$startTime = microtime(true);
+		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123', 1, true);
+		$duration = microtime(true) - $startTime;
 		$this->assertLessThan(0.5, $duration);
 
-		$this->assertLessThan(static::NUMBER_OF_POIS, count($result));
+		$this->assertEquals(1701, count($result));
 	}
 
 	public function testTimingGeoDistanceByPostalCode_withoutRadius() {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123');
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(4, $duration);
+		$this->assertLessThan(12, $duration);
 
 		$this->assertCount(static::NUMBER_OF_POIS, $result);
 	}
