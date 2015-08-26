@@ -35,7 +35,7 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan(0.3, $duration);
 
-		$this->assertEquals(853, count($result));
+		$this->assertEquals(854, count($result));
 	}
 
 	public function testTimingGeoDistance_withRadius_optimized() {
@@ -44,7 +44,7 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan(0.3, $duration);
 
-		$this->assertEquals(853, count($result));
+		$this->assertEquals(854, count($result));
 	}
 
 	public function testTimingGeoDistance_withoutRadius() {
@@ -62,7 +62,7 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan(2.1, $duration);
 
-		$this->assertEquals(1701, count($result));
+		$this->assertEquals(1703, count($result));
 	}
 
 	public function testTimingGeoDistanceByPostalCode_withRadius_optimized() {
@@ -71,7 +71,7 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan(0.5, $duration);
 
-		$this->assertEquals(1701, count($result));
+		$this->assertEquals(1703, count($result));
 	}
 
 	public function testTimingGeoDistanceByPostalCode_withoutRadius() {

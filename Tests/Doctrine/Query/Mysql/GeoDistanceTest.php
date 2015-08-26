@@ -35,7 +35,7 @@ class GeoDistanceTest extends IntegrationTestCase {
 	public function dataGeoDistance() {
 		return array(
 			array(52.392759, 13.065135, 52.392759, 13.065135, 0),
-			array(52.392759, 13.065135, 52.525011, 13.369438, 25.352806214654937),
+			array(52.392759, 13.065135, 52.525011, 13.369438, 25.32498093345365),
 		);
 	}
 

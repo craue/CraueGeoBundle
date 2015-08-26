@@ -17,6 +17,8 @@ use Doctrine\ORM\Query\SqlWalker;
  */
 class GeoDistance extends FunctionNode {
 
+	const EARTH_DIAMETER = 12742; // 2 * Earth's radius (6371 km)
+
 	protected $latOrigin;
 	protected $lngOrigin;
 	protected $latDestination;
@@ -43,7 +45,8 @@ class GeoDistance extends FunctionNode {
 		// formula adapted from http://www.scribd.com/doc/2569355/Geo-Distance-Search-with-MySQL
 		// originally returns distance in miles: 3956 * 2 * ASIN(SQRT(POWER(SIN((orig.lat - dest.lat) * PI()/180 / 2), 2) + COS(orig.lat * PI()/180) * COS(dest.lat * PI()/180) * POWER(SIN((orig.lon - dest.lon) *  PI()/180 / 2), 2)))
 		return sprintf(
-			'12756 * ASIN(SQRT(POWER(SIN((%s - %s) * PI()/360), 2) + COS(%s * PI()/180) * COS(%s * PI()/180) * POWER(SIN((%s - %s) *  PI()/360), 2)))',
+			'%s * ASIN(SQRT(POWER(SIN((%s - %s) * PI()/360), 2) + COS(%s * PI()/180) * COS(%s * PI()/180) * POWER(SIN((%s - %s) *  PI()/360), 2)))',
+			self::EARTH_DIAMETER,
 			$sqlWalker->walkArithmeticPrimary($this->latOrigin),
 			$sqlWalker->walkArithmeticPrimary($this->latDestination),
 			$sqlWalker->walkArithmeticPrimary($this->latOrigin),
