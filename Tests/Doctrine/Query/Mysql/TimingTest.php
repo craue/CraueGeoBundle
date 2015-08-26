@@ -33,7 +33,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistance(52.1, 13.1, 1);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(0.3, $duration);
+		$this->assertLessThan(0.4, $duration);
 
 		$this->assertEquals(854, count($result));
 	}
@@ -51,7 +51,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistance(52.1, 13.1);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(12, $duration);
+		$this->assertLessThan(15, $duration);
 
 		$this->assertCount(static::NUMBER_OF_POIS, $result);
 	}
@@ -60,7 +60,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123', 1);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(2.1, $duration);
+		$this->assertLessThan(2.8, $duration);
 
 		$this->assertEquals(1703, count($result));
 	}
@@ -69,7 +69,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123', 1, true);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(0.5, $duration);
+		$this->assertLessThan(0.6, $duration);
 
 		$this->assertEquals(1703, count($result));
 	}
@@ -78,7 +78,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123');
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(12, $duration);
+		$this->assertLessThan(15, $duration);
 
 		$this->assertCount(static::NUMBER_OF_POIS, $result);
 	}
