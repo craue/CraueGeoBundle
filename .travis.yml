@@ -58,4 +58,4 @@ sudo: false
 # cache Composer's package cache
 cache:
   directories:
-    - $HOME/.composer/cache
+    - $HOME/.composer/cache/files
