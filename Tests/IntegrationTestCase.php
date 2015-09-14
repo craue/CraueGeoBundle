@@ -133,10 +133,6 @@ abstract class IntegrationTestCase extends WebTestCase {
 		$environment = isset($options['environment']) ? $options['environment'] : 'test';
 		$configFile = isset($options['config']) ? $options['config'] : 'config.yml';
 
-		if (class_exists('Craue\GeoBundle\Tests\LocalAppKernel')) {
-			return new LocalAppKernel($environment, $configFile);
-		}
-
 		return new AppKernel($environment, $configFile);
 	}
 
