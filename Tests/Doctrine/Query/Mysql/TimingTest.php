@@ -69,7 +69,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '123', 1, true);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(0.6, $duration);
+		$this->assertLessThan(0.65, $duration);
 
 		$this->assertEquals(1703, count($result));
 	}
