@@ -227,7 +227,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @return EntityRepository
 	 */
 	protected static function getRepo() {
-		return static::getEntityManager()->getRepository(get_class(new GeoPostalCode()));
+		return static::getEntityManager()->getRepository('Craue\GeoBundle\Entity\GeoPostalCode');
 	}
 
 	/**
