@@ -1,0 +1,12 @@
+imports:
+  - { resource: config.yml }
+
+doctrine:
+  orm:
+    dql:
+      numeric_functions:
+        MY_GEO_DISTANCE: Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance
+
+craue_geo:
+  functions:
+    geo_distance_by_postal_code: MY_GEO_DISTANCE

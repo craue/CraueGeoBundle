@@ -1,0 +1,7 @@
+imports:
+  - { resource: config.yml }
+
+craue_geo:
+  functions:
+    geo_distance: CRAUE_GEO_DISTANCE
+    geo_distance_by_postal_code: CRAUE_GEO_DISTANCE_BY_POSTAL_CODE

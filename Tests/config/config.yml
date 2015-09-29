@@ -10,10 +10,6 @@ doctrine:
   orm:
     auto_generate_proxy_classes: "%kernel.debug%"
     auto_mapping: true
-    dql:
-      numeric_functions:
-        GEO_DISTANCE: Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance
-        GEO_DISTANCE_BY_POSTAL_CODE: Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistanceByPostalCode
 
 framework:
   router:
