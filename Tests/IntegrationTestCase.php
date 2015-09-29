@@ -6,9 +6,8 @@ use Craue\GeoBundle\Entity\GeoPostalCode;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Doctrine\ORM\Tools\SchemaTool;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
-use Symfony\Component\Console\Input\ArrayInput;
 
 /**
  * @author Christian Raue <christian.raue@gmail.com>
@@ -18,23 +17,9 @@ use Symfony\Component\Console\Input\ArrayInput;
 abstract class IntegrationTestCase extends WebTestCase {
 
 	/**
-	 * {@inheritDoc}
+	 * @var boolean[]
 	 */
-	public static function setUpBeforeClass() {
-		static::rebuildDatabase();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	protected function setUp() {
-		static::createClient();
-		$this->cleanDatabaseBeforeTest();
-	}
-
-	protected function cleanDatabaseBeforeTest() {
-		static::removeAllGeoPostalCodes();
-	}
+	private static $databaseInitialized = array();
 
 	/**
 	 * @param double $lat
@@ -44,7 +29,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @return GeoPostalCode[]
 	 */
 	protected function getPoisPerGeoDistance($lat, $lng, $maxRadiusInKm = null, $addRadiusOptimization = false) {
-		$qb = static::getRepo()->createQueryBuilder('poi')
+		$qb = $this->getRepo()->createQueryBuilder('poi')
 			->select('poi, GEO_DISTANCE(:lat, :lng, poi.lat, poi.lng) AS distance')
 			->setParameter('lat', $lat)
 			->setParameter('lng', $lng)
@@ -73,7 +58,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @return GeoPostalCode[]
 	 */
 	protected function getPoisPerGeoDistanceByPostalCode($country, $postalCode, $maxRadiusInKm = null, $addRadiusOptimization = false) {
-		$qb = static::getRepo()->createQueryBuilder('poi')
+		$qb = $this->getRepo()->createQueryBuilder('poi')
 			->select('poi, GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) AS distance')
 			->setParameter('country', $country)
 			->setParameter('postalCode', $postalCode)
@@ -82,7 +67,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 
 		if ($maxRadiusInKm !== null) {
 			if ($addRadiusOptimization) {
-				$qbOrigin = static::getRepo()->createQueryBuilder('poi')
+				$qbOrigin = $this->getRepo()->createQueryBuilder('poi')
 					->andWhere('poi.country = :country')
 					->andWhere('poi.postalCode = :postalCode')
 					->setParameter('country', $country)
@@ -136,25 +121,34 @@ abstract class IntegrationTestCase extends WebTestCase {
 		return new AppKernel($environment, $configFile);
 	}
 
-	protected static function rebuildDatabase() {
-		static::createClient();
-		$application = new Application(static::$kernel);
-		$application->setAutoExit(false);
+	/**
+	 * Initializes a client and prepares the database.
+	 * @param array $options options for creating the client
+	 * @param boolean $cleanDatabase if the database should be cleaned in case it already exists
+	 * @return Client
+	 */
+	protected function initClient(array $options = array(), $cleanDatabase = true) {
+		$client = static::createClient($options);
+		$environment = static::$kernel->getEnvironment();
 
-		static::executeCommand($application, 'doctrine:schema:drop', array('--force' => true, '--full-database' => true));
-		static::executeCommand($application, 'doctrine:schema:update', array('--force' => true));
+		// Avoid completely rebuilding the database for each test. Create it only once per environment. After that, cleaning it is enough.
+		if (!array_key_exists($environment, self::$databaseInitialized) || !self::$databaseInitialized[$environment]) {
+			$this->rebuildDatabase();
+			self::$databaseInitialized[$environment] = true;
+		} elseif ($cleanDatabase) {
+			$this->removeAllGeoPostalCodes();
+		}
+
+		return $client;
 	}
 
-	private static function executeCommand(Application $application, $command, array $options = array()) {
-		$options = array_merge($options, array(
-			'--env' => 'test',
-			'--no-debug' => null,
-			'--no-interaction' => null,
-			'--quiet' => null,
-			'command' => $command,
-		));
+	protected function rebuildDatabase() {
+		$em = $this->getEntityManager();
+		$metadata = $em->getMetadataFactory()->getAllMetadata();
+		$schemaTool = new SchemaTool($em);
 
-		return $application->run(new ArrayInput($options));
+		$schemaTool->dropSchema($metadata);
+		$schemaTool->createSchema($metadata);
 	}
 
 	/**
@@ -165,14 +159,14 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param double $lng
 	 * @return GeoPostalCode
 	 */
-	protected static function persistGeoPostalCode($country, $postalCode, $lat, $lng) {
+	protected function persistGeoPostalCode($country, $postalCode, $lat, $lng) {
 		$entity = new GeoPostalCode();
 		$entity->setCountry($country);
 		$entity->setPostalCode($postalCode);
 		$entity->setLat($lat);
 		$entity->setLng($lng);
 
-		$em = static::getEntityManager();
+		$em = $this->getEntityManager();
 		$em->persist($entity);
 		$em->flush();
 
@@ -183,8 +177,8 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * Persists a number of {@code GeoPostalCode}s using non-random dummy data.
 	 * @param integer $number
 	 */
-	protected static function persistDummyGeoPostalCodes($number) {
-		$em = static::getEntityManager();
+	protected function persistDummyGeoPostalCodes($number) {
+		$em = $this->getEntityManager();
 
 		for ($i = 0; $i < $number; ++$i) {
 			$entity = new GeoPostalCode();
@@ -206,10 +200,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * Removes all {@code GeoPostalCode}s.
 	 */
-	protected static function removeAllGeoPostalCodes() {
-		$em = static::getEntityManager();
+	protected function removeAllGeoPostalCodes() {
+		$em = $this->getEntityManager();
 
-		foreach (static::getRepo()->findAll() as $entity) {
+		foreach ($this->getRepo()->findAll() as $entity) {
 			$em->remove($entity);
 		}
 
@@ -219,22 +213,22 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * @return EntityManager
 	 */
-	protected static function getEntityManager() {
-		return static::getService('doctrine')->getManager();
+	protected function getEntityManager() {
+		return $this->getService('doctrine')->getManager();
 	}
 
 	/**
 	 * @return EntityRepository
 	 */
-	protected static function getRepo() {
-		return static::getEntityManager()->getRepository('Craue\GeoBundle\Entity\GeoPostalCode');
+	protected function getRepo() {
+		return $this->getEntityManager()->getRepository('Craue\GeoBundle\Entity\GeoPostalCode');
 	}
 
 	/**
 	 * @param string $id The service identifier.
 	 * @return object The associated service.
 	 */
-	protected static function getService($id) {
+	protected function getService($id) {
 		return static::$kernel->getContainer()->get($id);
 	}
 

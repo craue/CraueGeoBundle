@@ -13,6 +13,10 @@ use Craue\GeoBundle\Tests\IntegrationTestCase;
  */
 class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 
+	protected function setUp() {
+		$this->initClient();
+	}
+
 	public function testNoResults() {
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '10551');
 
@@ -20,8 +24,8 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 	}
 
 	public function testDistance() {
-		static::persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
-		static::persistGeoPostalCode('DE', '10551', 52.525011, 13.369438);
+		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
+		$this->persistGeoPostalCode('DE', '10551', 52.525011, 13.369438);
 
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '10551');
 
@@ -31,8 +35,8 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 	}
 
 	public function testUnknownPostalCode_withRadius() {
-		static::persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
-		static::persistGeoPostalCode('DE', '10551', 52.525011, 13.369438);
+		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
+		$this->persistGeoPostalCode('DE', '10551', 52.525011, 13.369438);
 
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '20099', 1000.1);
 
@@ -40,8 +44,8 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 	}
 
 	public function testUnknownPostalCode_withoutRadius() {
-		static::persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
-		static::persistGeoPostalCode('DE', '10551', 52.525011, 13.369438);
+		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
+		$this->persistGeoPostalCode('DE', '10551', 52.525011, 13.369438);
 
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '20099');
 
