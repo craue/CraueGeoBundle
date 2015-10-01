@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.2.0 (2015-10-01)
+
+- [#10]: register Doctrine functions automatically while providing a way to set custom names
+- dropped support for Symfony 2.0, 2.1, 2.2
+
+[#10]: https://github.com/craue/CraueGeoBundle/issues/10
+
 ## 1.1.0 (2015-09-08)
 
 - updated Earth's diameter
