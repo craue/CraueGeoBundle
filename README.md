@@ -32,21 +32,6 @@ public function registerBundles() {
 }
 ```
 
-## Register the Doctrine functions you need
-
-You need to manually register the Doctrine functions you want to use.
-See http://symfony.com/doc/current/cookbook/doctrine/custom_dql_functions.html for details.
-
-```yaml
-# in app/config/config.yml
-doctrine:
-  orm:
-    dql:
-      numeric_functions:
-        GEO_DISTANCE: Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance
-        GEO_DISTANCE_BY_POSTAL_CODE: Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistanceByPostalCode
-```
-
 ## Prepare the table with geographical data needed for calculations
 
 The `GEO_DISTANCE_BY_POSTAL_CODE` function, if you'd like to use it, relies on some data which has to be added to your
@@ -139,3 +124,17 @@ $queryBuilder
 ```
 
 The `HIDDEN` keyword is available as of Doctrine 2.2.
+
+# Advanced stuff
+
+## Use custom names for the Doctrine functions
+
+If you don't like the default names or need to avoid conflicts with other functions, you can set custom names:
+
+```yaml
+# in app/config/config.yml
+craue_geo:
+  functions:
+    geo_distance: MY_VERY_OWN_GEO_DISTANCE_FUNCTION
+    geo_distance_by_postal_code: MY_VERY_OWN_GEO_DISTANCE_BY_POSTAL_CODE_FUNCTION
+```

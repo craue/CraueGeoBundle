@@ -16,17 +16,18 @@ class TimingTest extends IntegrationTestCase {
 	const NUMBER_OF_POIS = 50000;
 
 	/**
-	 * {@inheritDoc}
+	 * @var boolean
 	 */
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
+	private static $dummyDataAdded = false;
 
-		// only add the dummy data once as it takes quite some time
-		static::persistDummyGeoPostalCodes(static::NUMBER_OF_POIS);
-	}
+	protected function setUp() {
+		$this->initClient(array(), !self::$dummyDataAdded);
 
-	protected function cleanDatabaseBeforeTest() {
-		// don't clean
+		// Only add the dummy data once as it takes quite some time.
+		if (!self::$dummyDataAdded) {
+			$this->persistDummyGeoPostalCodes(static::NUMBER_OF_POIS);
+			self::$dummyDataAdded = true;
+		}
 	}
 
 	public function testTimingGeoDistance_withRadius() {

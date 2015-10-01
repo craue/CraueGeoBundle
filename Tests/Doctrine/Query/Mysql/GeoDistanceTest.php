@@ -14,24 +14,25 @@ use Craue\GeoBundle\Tests\IntegrationTestCase;
 class GeoDistanceTest extends IntegrationTestCase {
 
 	/**
-	 * {@inheritDoc}
+	 * @var boolean
 	 */
-	public static function setUpBeforeClass() {
-		parent::setUpBeforeClass();
+	private static $dummyDataAdded = false;
 
-		// there must be any data in the table to get a result at all, but it's fine to only add the dummy data once
-		static::persistDummyGeoPostalCodes(1);
-	}
+	protected function setUp() {
+		$this->initClient(array(), !self::$dummyDataAdded);
 
-	protected function cleanDatabaseBeforeTest() {
-		// don't clean
+		// There must be some data in the table to get a result at all, but it's fine to only add the dummy data once.
+		if (!self::$dummyDataAdded) {
+			$this->persistDummyGeoPostalCodes(1);
+			self::$dummyDataAdded = true;
+		}
 	}
 
 	/**
 	 * @dataProvider dataGeoDistance
 	 */
 	public function testGeoDistance($latOrigin, $lngOrigin, $latDestination, $lngDestination, $expectedDistance) {
-		$qb = static::getRepo()->createQueryBuilder('poi')
+		$qb = $this->getRepo()->createQueryBuilder('poi')
 			->select('GEO_DISTANCE(:latOrigin, :lngOrigin, :latDestination, :lngDestination)')
 			->setParameter('latOrigin', $latOrigin)
 			->setParameter('lngOrigin', $lngOrigin)
