@@ -1,0 +1,5 @@
+imports:
+  - { resource: config.yml }
+
+craue_geo:
+  enable_postal_code_entity: false

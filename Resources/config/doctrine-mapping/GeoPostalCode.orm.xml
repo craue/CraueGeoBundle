@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+	Author: Christian Raue <christian.raue@gmail.com>
+	Copyright: 2011-2015 Christian Raue
+	License: http://opensource.org/licenses/mit-license.php MIT License
+-->
+<doctrine-mapping
+	xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+	<entity name="Craue\GeoBundle\Entity\GeoPostalCode" table="craue_geo_postalcode">
+		<unique-constraints>
+			<unique-constraint name="postal_code_idx" columns="country,postal_code" />
+		</unique-constraints>
+		<id name="id" column="id" type="integer">
+			<generator strategy="AUTO" />
+		</id>
+		<field name="country" column="country" type="string" length="2" nullable="false" />
+		<field name="postalCode" column="postal_code" type="string" length="20" nullable="false" />
+		<field name="lat" column="lat" type="decimal" precision="9" scale="6" nullable="false" />
+		<field name="lng" column="lng" type="decimal" precision="9" scale="6" nullable="false" />
+	</entity>
+</doctrine-mapping>

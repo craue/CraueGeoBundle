@@ -27,6 +27,10 @@ class CraueGeoExtension extends Extension implements PrependExtensionInterface {
 	public function prepend(ContainerBuilder $container) {
 		$config = $this->processConfiguration(new Configuration(), $container->getExtensionConfig($this->getAlias()));
 
+		if ($config['enable_postal_code_entity'] === true) {
+			$container->setParameter('craue_geo.register_entity.postal_code', true);
+		}
+
 		$container->prependExtensionConfig('doctrine', array(
 			'orm' => array(
 				'dql' => array(
