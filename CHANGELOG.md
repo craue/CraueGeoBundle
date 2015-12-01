@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 (2015-12-01)
+
+- [#11]: added config option `enable_postal_code_entity` to avoid creating the postal code table
+- added support for Symfony 3.*
+
+[#11]: https://github.com/craue/CraueGeoBundle/issues/11
+
 ## 1.2.0 (2015-10-01)
 
 - [#10]: register Doctrine functions automatically while providing a way to set custom names
