@@ -127,6 +127,18 @@ The `HIDDEN` keyword is available as of Doctrine 2.2.
 
 # Advanced stuff
 
+## Avoid creating the postal code table
+
+If you want to avoid registering the `GeoPostalCode` entity (and as a result, avoid creating the `craue_geo_postalcode` table) at all, add
+
+```yaml
+# in app/config/config.yml
+craue_geo:
+  enable_postal_code_entity: false
+```
+
+to your configuration.
+
 ## Use custom names for the Doctrine functions
 
 If you don't like the default names or need to avoid conflicts with other functions, you can set custom names:
