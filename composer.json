@@ -30,7 +30,6 @@
 		"doctrine/data-fixtures": "*"
 	},
 	"minimum-stability": "stable",
-	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"Craue\\GeoBundle\\": ""
