@@ -41,7 +41,7 @@ install:
 before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
 
-script: phpunit -v
+script: vendor/bin/phpunit -v
 
 notifications:
   email:
