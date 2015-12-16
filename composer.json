@@ -1,8 +1,8 @@
 {
 	"name": "craue/geo-bundle",
 	"type": "symfony-bundle",
-	"description": "Doctrine functions for calculating geographical distances in your Symfony2 project.",
-	"keywords": ["symfony2", "geo"],
+	"description": "Doctrine functions for calculating geographical distances in your Symfony project.",
+	"keywords": ["geo", "symfony2", "symfony3"],
 	"homepage": "https://github.com/craue/CraueGeoBundle",
 	"license": "MIT",
 	"authors": [
