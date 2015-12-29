@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.1 (2015-12-29)
+
+- added support for PHP 7.0 and HHVM
+
 ## 1.3.0 (2015-12-01)
 
 - [#11]: added config option `enable_postal_code_entity` to avoid creating the postal code table
