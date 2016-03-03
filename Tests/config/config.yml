@@ -8,7 +8,7 @@ doctrine:
     user: travis
     password: ~
   orm:
-    auto_generate_proxy_classes: "%kernel.debug%"
+    auto_generate_proxy_classes: '%kernel.debug%'
     auto_mapping: true
 
 framework:
