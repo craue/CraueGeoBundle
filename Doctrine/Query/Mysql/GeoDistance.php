@@ -43,9 +43,9 @@ class GeoDistance extends FunctionNode {
 		 * SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens
 		 */
 		// formula adapted from http://www.scribd.com/doc/2569355/Geo-Distance-Search-with-MySQL
-		// originally returns distance in miles: 3956 * 2 * ASIN(SQRT(POWER(SIN((orig.lat - dest.lat) * PI()/180 / 2), 2) + COS(orig.lat * PI()/180) * COS(dest.lat * PI()/180) * POWER(SIN((orig.lon - dest.lon) *  PI()/180 / 2), 2)))
+		// originally returns distance in miles: 3956 * 2 * ASIN(SQRT(POWER(SIN((orig.lat - dest.lat) * PI()/180 / 2), 2) + COS(orig.lat * PI()/180) * COS(dest.lat * PI()/180) * POWER(SIN((orig.lon - dest.lon) * PI()/180 / 2), 2)))
 		return sprintf(
-			'%s * ASIN(SQRT(POWER(SIN((%s - %s) * PI()/360), 2) + COS(%s * PI()/180) * COS(%s * PI()/180) * POWER(SIN((%s - %s) *  PI()/360), 2)))',
+			'%s * ASIN(SQRT(POWER(SIN((%s - %s) * PI()/360), 2) + COS(%s * PI()/180) * COS(%s * PI()/180) * POWER(SIN((%s - %s) * PI()/360), 2)))',
 			self::EARTH_DIAMETER,
 			$sqlWalker->walkArithmeticPrimary($this->latOrigin),
 			$sqlWalker->walkArithmeticPrimary($this->latDestination),

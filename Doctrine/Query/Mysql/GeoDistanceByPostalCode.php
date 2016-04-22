@@ -37,7 +37,7 @@ class GeoDistanceByPostalCode extends FunctionNode {
 
 	public function getSql(SqlWalker $sqlWalker) {
 		return sprintf(
-			'%s * ASIN(SQRT(POWER(SIN(((SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) - (SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s)) * PI()/360), 2) + COS((SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) * PI()/180) * COS((SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) * PI()/180) * POWER(SIN(((SELECT `lng` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) - (SELECT `lng` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s)) *  PI()/360), 2)))',
+			'%s * ASIN(SQRT(POWER(SIN(((SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) - (SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s)) * PI()/360), 2) + COS((SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) * PI()/180) * COS((SELECT `lat` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) * PI()/180) * POWER(SIN(((SELECT `lng` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s) - (SELECT `lng` FROM `craue_geo_postalcode` WHERE `country` = %s AND `postal_code` = %s)) * PI()/360), 2)))',
 			GeoDistance::EARTH_DIAMETER,
 			$sqlWalker->walkStringPrimary($this->countryOrigin),
 			$sqlWalker->walkStringPrimary($this->postalCodeOrigin),
