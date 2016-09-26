@@ -16,7 +16,7 @@ class DisablePostalCodeEntityTest extends IntegrationTestCase {
 	/**
 	 * Ensure that the GeoPostalCode class is not registered as a Doctrine entity.
 	 *
-	 * @expectedException Doctrine\ORM\Mapping\MappingException
+	 * @expectedException \Doctrine\ORM\Mapping\MappingException
 	 * @expectedExceptionMessage Class "Craue\GeoBundle\Entity\GeoPostalCode"
 	 * @expectedExceptionMessage is not a valid entity or mapped super class.
 	 *
