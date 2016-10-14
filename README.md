@@ -42,7 +42,7 @@ database first.
 The `GeoPostalCode` entity provided contains the structure for the geographical data. You import it by calling either
 
 ```sh
-# in a shell
+# in a shell (run `bin/console` instead of `app/console` if your project is based on Symfony 3)
 php app/console doctrine:migrations:diff
 php app/console doctrine:migrations:migrate
 ```
@@ -50,7 +50,7 @@ php app/console doctrine:migrations:migrate
 or
 
 ```sh
-# in a shell
+# in a shell (run `bin/console` instead of `app/console` if your project is based on Symfony 3)
 php app/console doctrine:schema:update
 ```
 
@@ -87,7 +87,7 @@ Now, backup your database! Don't blame anyone else for data loss if something go
 Then import the fixture and remember to use the `--append` parameter.
 
 ```sh
-# in a shell
+# in a shell (run `bin/console` instead of `app/console` if your project is based on Symfony 3)
 php app/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
 ```
 
