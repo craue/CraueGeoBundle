@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 class GeoPostalCode {
 
 	/**
-	 * @var integer
+	 * @var int
 	 */
 	protected $id;
 

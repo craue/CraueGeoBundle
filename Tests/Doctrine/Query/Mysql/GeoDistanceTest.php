@@ -14,7 +14,7 @@ use Craue\GeoBundle\Tests\IntegrationTestCase;
 class GeoDistanceTest extends IntegrationTestCase {
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private static $dummyDataAdded = false;
 

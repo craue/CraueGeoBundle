@@ -16,7 +16,7 @@ class TimingTest extends IntegrationTestCase {
 	const NUMBER_OF_POIS = 50000;
 
 	/**
-	 * @var boolean
+	 * @var bool
 	 */
 	private static $dummyDataAdded = false;
 

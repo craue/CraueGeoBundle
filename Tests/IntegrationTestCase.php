@@ -17,7 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 abstract class IntegrationTestCase extends WebTestCase {
 
 	/**
-	 * @var boolean[]
+	 * @var bool[]
 	 */
 	private static $databaseInitialized = array();
 
@@ -25,7 +25,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param double $lat
 	 * @param double $lng
 	 * @param double $maxRadiusInKm
-	 * @param boolean $addRadiusOptimization
+	 * @param bool $addRadiusOptimization
 	 * @return GeoPostalCode[]
 	 */
 	protected function getPoisPerGeoDistance($lat, $lng, $maxRadiusInKm = null, $addRadiusOptimization = false) {
@@ -54,7 +54,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param string $country
 	 * @param string $postalCode
 	 * @param double $maxRadiusInKm
-	 * @param boolean $addRadiusOptimization
+	 * @param bool $addRadiusOptimization
 	 * @return GeoPostalCode[]
 	 */
 	protected function getPoisPerGeoDistanceByPostalCode($country, $postalCode, $maxRadiusInKm = null, $addRadiusOptimization = false) {
@@ -124,7 +124,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * Initializes a client and prepares the database.
 	 * @param array $options options for creating the client
-	 * @param boolean $cleanDatabase if the database should be cleaned in case it already exists
+	 * @param bool $cleanDatabase if the database should be cleaned in case it already exists
 	 * @return Client
 	 */
 	protected function initClient(array $options = array(), $cleanDatabase = true) {
@@ -175,7 +175,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 
 	/**
 	 * Persists a number of {@code GeoPostalCode}s using non-random dummy data.
-	 * @param integer $number
+	 * @param int $number
 	 */
 	protected function persistDummyGeoPostalCodes($number) {
 		$em = $this->getEntityManager();

@@ -29,7 +29,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 	/**
 	 * @param ObjectManager $manager
 	 * @param string $filename
-	 * @return integer Number of entries actually added.
+	 * @return int Number of entries actually added.
 	 */
 	protected function addEntries(ObjectManager $manager, $filename) {
 		$repo = $this->getRepository($manager);
