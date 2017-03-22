@@ -24,7 +24,7 @@
 	"require-dev": {
 		"doctrine/data-fixtures": "~1.0",
 		"phpunit/phpunit": "~4.1|~5.0",
-		"symfony/phpunit-bridge": "~2.7|~3.0",
+		"symfony/phpunit-bridge": "~3.2",
 		"symfony/symfony": "~2.3|~3.0"
 	},
 	"suggest": {
