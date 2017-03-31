@@ -1,7 +1,7 @@
 doctrine:
   dbal:
     charset: UTF8
-    driver: pdo_mysql
+    driver: ~
     host: 127.0.0.1
     port: ~
     dbname: test
