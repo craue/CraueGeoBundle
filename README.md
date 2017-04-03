@@ -14,7 +14,7 @@ There are two Doctrine functions, which return a distance in km:
 Let Composer download and install the bundle by running
 
 ```sh
-php composer.phar require craue/geo-bundle:~1.3
+php composer.phar require craue/geo-bundle:~1.4@dev
 ```
 
 in a shell.
@@ -126,6 +126,37 @@ $queryBuilder
 The `HIDDEN` keyword is available as of Doctrine 2.2.
 
 # Advanced stuff
+
+## Using the Doctrine functions for a different database platform
+
+By default, the Doctrine functions are automatically registered for usage with MySQL. But you can tell the bundle that
+you want to use them with a different database platform by setting a `flavor`:
+
+```yaml
+# in app/config/config.yml
+craue_geo:
+  flavor: postgresql
+```
+
+Currently, the following flavors are supported:
+- `mysql`: MySQL (default value)
+- `postgresql`: PostgreSQL
+- `none`: prevents registration of the Doctrine functions in case you want to do it manually
+
+As PostgreSQL doesn't support aliases in the HAVING clause and further requires `poi` to appear in the GROUP BY clause,
+you need to adapt the query (from the usage example above):
+
+```php
+$queryBuilder
+	->select('poi, GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) AS HIDDEN distance')
+	->having('GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) <= :radius')
+	->setParameter('country', $country)
+	->setParameter('postalCode', $postalCode)
+	->setParameter('radius', $radiusInKm)
+	->groupBy('poi')
+	->orderBy('distance')
+;
+```
 
 ## Avoid creating the postal code table
 

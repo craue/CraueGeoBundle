@@ -31,16 +31,20 @@ class CraueGeoExtension extends Extension implements PrependExtensionInterface {
 			$container->setParameter('craue_geo.register_entity.postal_code', true);
 		}
 
-		$container->prependExtensionConfig('doctrine', array(
-			'orm' => array(
-				'dql' => array(
-					'numeric_functions' => array(
-						$config['functions']['geo_distance'] => 'Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance',
-						$config['functions']['geo_distance_by_postal_code'] => 'Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistanceByPostalCode',
+		if ($config['flavor'] !== 'none') {
+			$functionClassesNamespace = sprintf('Craue\GeoBundle\Doctrine\Query\%s', ucfirst($config['flavor']));
+
+			$container->prependExtensionConfig('doctrine', array(
+				'orm' => array(
+					'dql' => array(
+						'numeric_functions' => array(
+							$config['functions']['geo_distance'] => sprintf('%s\GeoDistance', $functionClassesNamespace),
+							$config['functions']['geo_distance_by_postal_code'] => sprintf('%s\GeoDistanceByPostalCode', $functionClassesNamespace),
+						),
 					),
 				),
-			),
-		));
+			));
+		}
 	}
 
 }

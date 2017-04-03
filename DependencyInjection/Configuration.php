@@ -22,6 +22,7 @@ class Configuration implements ConfigurationInterface {
 
 		$treeBuilder->root('craue_geo')
 			->children()
+				->enumNode('flavor')->values(array('none', 'mysql', 'postgresql'))->defaultValue('mysql')->end()
 				->booleanNode('enable_postal_code_entity')->defaultValue(true)->end()
 				->arrayNode('functions')
 					->addDefaultsIfNotSet()

@@ -1,0 +1,6 @@
+doctrine:
+  dbal:
+    driver: pdo_mysql
+
+craue_geo:
+  flavor: none

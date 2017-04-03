@@ -14,8 +14,11 @@ use Craue\GeoBundle\Tests\IntegrationTestCase;
  */
 class FixtureTest extends IntegrationTestCase {
 
-	public function testImport() {
-		$this->initClient();
+	/**
+	 * @dataProvider getPlatformConfigs
+	 */
+	public function testImport($platform, $config, $requiredExtension) {
+		$this->initClient($requiredExtension, array('environment' => $platform, 'config' => $config));
 
 		// [A] add some data which is meant to be removed by importing new data
 		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
