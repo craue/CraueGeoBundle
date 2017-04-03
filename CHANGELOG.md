@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0 (2017-04-03)
+
+- [#15]: added support for PostgreSQL 
+
+[#15]: https://github.com/craue/CraueGeoBundle/issues/15
+
 ## 1.3.1 (2015-12-29)
 
 - added support for PHP 7.0 and HHVM
