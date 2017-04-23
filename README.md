@@ -125,6 +125,21 @@ $queryBuilder
 
 The `HIDDEN` keyword is available as of Doctrine 2.2.
 
+## PostgreSQL usage
+
+```php
+
+// build the query
+$queryBuilder
+	->select('poi, GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) AS HIDDEN distance')
+	->having('GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode) <= :radius')
+	->setParameter('country', $country)
+	->setParameter('postalCode', $postalCode)
+	->setParameter('radius', $radiusInKm)
+	->orderBy('distance')
+;
+```
+
 # Advanced stuff
 
 ## Using the Doctrine functions for a different database platform
@@ -181,3 +196,4 @@ craue_geo:
     geo_distance: MY_VERY_OWN_GEO_DISTANCE_FUNCTION
     geo_distance_by_postal_code: MY_VERY_OWN_GEO_DISTANCE_BY_POSTAL_CODE_FUNCTION
 ```
+
