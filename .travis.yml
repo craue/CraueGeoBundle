@@ -36,10 +36,15 @@ services:
   - postgresql
 
 install:
+  # disable Xdebug for better Composer performance
   - if [ "${TRAVIS_PHP_VERSION}" != 'hhvm' ]; then phpenv config-rm xdebug.ini; fi;
+  # set unlimited memory_limit
   - if [ "${TRAVIS_PHP_VERSION}" != 'hhvm' ]; then INI_FILE=~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; else INI_FILE=/etc/hhvm/php.ini; fi;
   - echo "memory_limit = -1" >> "${INI_FILE}"
+  # install dependencies using Composer
   - travis_wait bash .travis_install_dependencies.sh
+  # show installed dependencies
+  - composer show
 
 before_script:
   - mysql -e 'CREATE DATABASE IF NOT EXISTS test;'
