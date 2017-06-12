@@ -43,7 +43,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistance(52.1, 13.1, 1);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan($platform === self::PLATFORM_POSTGRESQL ? 0.5 : 0.4, $duration);
+		$this->assertLessThan($platform === self::PLATFORM_POSTGRESQL ? 0.6 : 0.4, $duration);
 
 		$this->assertEquals(854, count($result));
 	}
@@ -57,7 +57,7 @@ class TimingTest extends IntegrationTestCase {
 		$startTime = microtime(true);
 		$result = $this->getPoisPerGeoDistance(52.1, 13.1, 1, true);
 		$duration = microtime(true) - $startTime;
-		$this->assertLessThan(0.3, $duration);
+		$this->assertLessThan(0.4, $duration);
 
 		$this->assertEquals(854, count($result));
 	}
