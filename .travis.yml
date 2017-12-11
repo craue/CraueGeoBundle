@@ -27,19 +27,19 @@ matrix:
     - php: 5.6
       env: SYMFONY_VERSION='3.3.*'
     - php: 5.6
-      env: SYMFONY_VERSION='3.4.*' MIN_STABILITY='dev'
+      env: SYMFONY_VERSION='3.4.*'
     - php: 7.1
-      env: SYMFONY_VERSION='4.*' DEPENDENCIES='beta'
+      env: SYMFONY_VERSION='4.0.*'
+    - php: 7.1
+      env: SYMFONY_VERSION='4.1.*' DEPENDENCIES='dev'
   allow_failures:
-    - env: SYMFONY_VERSION='3.4.*' MIN_STABILITY='dev'
+    - env: SYMFONY_VERSION='4.1.*' MIN_STABILITY='dev'
   fast_finish: true
 
 services:
   - postgresql
 
 install:
-  # suport for symfony 4.0
-  - if [ "$DEPENDENCIES" = "beta" ]; then composer config minimum-stability beta; fi;
   # disable Xdebug for better Composer performance
   - if [ "${TRAVIS_PHP_VERSION}" != 'hhvm' ]; then phpenv config-rm xdebug.ini; fi;
   # set unlimited memory_limit
