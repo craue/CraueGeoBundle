@@ -11,7 +11,7 @@ class AppKernel extends Kernel {
 	private $configFiles;
 
 	public function __construct($environment, $configFiles) {
-		parent::__construct($environment, true);
+		parent::__construct($environment, false);
 
 		if (!is_array($configFiles)) {
 			$configFiles = (array) $configFiles;
