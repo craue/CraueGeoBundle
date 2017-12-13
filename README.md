@@ -14,7 +14,7 @@ There are two Doctrine functions, which return a distance in km:
 Let Composer download and install the bundle by running
 
 ```sh
-php composer.phar require craue/geo-bundle:~1.4
+php composer.phar require craue/geo-bundle:~1.5
 ```
 
 in a shell.

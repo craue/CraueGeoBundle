@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.5.0 (2017-12-13)
+
+- [#16]: added support for Symfony 4.*
+- bumped Symfony dependency to 2.7
+
+[#16]: https://github.com/craue/CraueGeoBundle/issues/16
+
 ## 1.4.0 (2017-04-03)
 
 - [#15]: added support for PostgreSQL 
