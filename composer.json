@@ -19,13 +19,13 @@
 		"php": "^5.3.9|~7.0",
 		"doctrine/doctrine-bundle": "~1.3",
 		"doctrine/orm": "~2.3",
-		"symfony/framework-bundle": "~2.7|~3.0"
+		"symfony/framework-bundle": "~2.7|~3.0|~4.0"
 	},
 	"require-dev": {
 		"doctrine/data-fixtures": "~1.0",
 		"phpunit/phpunit": "^4.8.35|~5.7|~6.0",
-		"symfony/phpunit-bridge": "~3.2",
-		"symfony/symfony": "~2.7|~3.0"
+		"symfony/phpunit-bridge": "~3.2|~4.0",
+		"symfony/symfony": "~2.7|~3.0|~4.0"
 	},
 	"suggest": {
 		"doctrine/data-fixtures": "*"
