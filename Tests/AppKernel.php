@@ -36,6 +36,7 @@ class AppKernel extends Kernel {
 	public function registerBundles() {
 		return [
 			new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
+			new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
 			new \Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
 			new \Craue\GeoBundle\CraueGeoBundle(),
 		];

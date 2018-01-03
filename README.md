@@ -86,10 +86,51 @@ class MyGeonamesPostalCodeData extends GeonamesPostalCodeData {
 Now, backup your database! Don't blame anyone else for data loss if something goes wrong.
 Then import the fixture and remember to use the `--append` parameter.
 
+Choose the following steps depending on the version of DoctrineFixturesBundle you're using.
+
+#### Either: DoctrineFixturesBundle < 3.0
+
+Load the fixture(s) in the given folder.
+
 ```sh
 # in a shell (run `bin/console` instead of `app/console` if your project is based on Symfony 3)
 php app/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
 ```
+
+#### Or: DoctrineFixturesBundle >= 3.1
+
+You first need to register the fixture as a service with a group of your choice.
+
+```yaml
+# in app/config/config.yml
+services:
+  my_geonames_postal_code_data:
+    class: MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\MyGeonamesPostalCodeData
+    public: false
+    tags:
+     - { name: doctrine.fixture.orm, group: my_geo_data }
+```
+
+It's also possible to register all classes in a specific folder as services.
+
+```yaml
+# in app/config/config.yml
+services:
+  MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\:
+    resource: '../../src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo/*'
+    public: false
+    tags:
+     - { name: doctrine.fixture.orm, group: my_geo_data }
+```
+
+Then, load the fixture(s) of that group.
+
+```sh
+# in a shell
+php bin/console doctrine:fixtures:load --append --group=my_geo_data
+```
+
+#### In both cases
 
 That's it. Of course you can use other data sources you have access to, and write a custom fixture to import it.
 

@@ -1,0 +1,9 @@
+imports:
+  - { resource: config.yml }
+
+services:
+  craue_geo_puerto_rico_geonames:
+    class: Craue\GeoBundle\Tests\Doctrine\Fixtures\CraueGeo\PuertoRicoGeonamesPostalCodeData
+    public: false
+    tags:
+     - { name: doctrine.fixture.orm, group: craue_geo_test }

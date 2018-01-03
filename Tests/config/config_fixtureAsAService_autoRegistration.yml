@@ -1,0 +1,8 @@
+imports:
+  - { resource: config.yml }
+
+services:
+  Craue\GeoBundle\Tests\Doctrine\Fixtures\CraueGeo\:
+    resource: '../Doctrine/Fixtures/CraueGeo/*'
+    tags:
+     - { name: doctrine.fixture.orm, group: craue_geo_test }
