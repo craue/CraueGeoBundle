@@ -34,7 +34,10 @@
 	"autoload": {
 		"psr-4": {
 			"Craue\\GeoBundle\\": ""
-		}
+		},
+		"exclude-from-classmap": [
+			"/Tests/"
+		]
 	},
 	"extra": {
 		"branch-alias": {
