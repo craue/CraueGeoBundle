@@ -51,7 +51,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 			$postalCode = $arr[1];
 
 			// skip duplicate entries in current batch
-			if (in_array($country.'-'.$postalCode, $currentBatchEntries)) {
+			if (in_array($country.'-'.$postalCode, $currentBatchEntries, true)) {
 				continue;
 			}
 
