@@ -2,6 +2,7 @@
 
 namespace Craue\GeoBundle\Tests\Doctrine\Query\Mysql;
 
+use Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance;
 use Craue\GeoBundle\Tests\IntegrationTestCase;
 
 /**
@@ -41,8 +42,7 @@ class CustomFunctionNameTest extends IntegrationTestCase {
 	public function testOverrideFunction($platform, $config, $requiredExtension) {
 		$this->initClient($requiredExtension, array('environment' => 'overrideFunction_' . $platform, 'config' => $config));
 
-		$this->assertSame('Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance',
-				$this->getEntityManager()->getConfiguration()->getCustomNumericFunction('MY_GEO_DISTANCE'));
+		$this->assertSame(GeoDistance::class, $this->getEntityManager()->getConfiguration()->getCustomNumericFunction('MY_GEO_DISTANCE'));
 	}
 
 	public function dataOverrideFunction() {

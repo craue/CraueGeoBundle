@@ -103,14 +103,15 @@ specific geographical distance with a radius of `$radiusInKm` from a given posta
 `$country`, and order them by distance.
 
 ```php
+use MyCompany\MyBundle\Entity\Poi;
+
 // example values which could come from a form, remember to validate/sanitize them first
 $country = 'DE';
 $postalCode = '10115';
 $radiusInKm = 10;
 
 // create a query builder
-$queryBuilder = $this->getDoctrine()->getEntityManager()
-		->getRepository('MyCompany\MyBundle\Entity\Poi')->createQueryBuilder('poi');
+$queryBuilder = $this->getDoctrine()->getEntityManager()->getRepository(Poi::class)->createQueryBuilder('poi');
 
 // build the query
 $queryBuilder
@@ -122,8 +123,6 @@ $queryBuilder
 	->orderBy('distance')
 ;
 ```
-
-The `HIDDEN` keyword is available as of Doctrine 2.2.
 
 # Advanced stuff
 

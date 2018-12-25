@@ -16,7 +16,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 	protected $batchSize = 1000;
 
 	protected function getRepository(ObjectManager $manager) {
-		return $manager->getRepository('Craue\GeoBundle\Entity\GeoPostalCode');
+		return $manager->getRepository(GeoPostalCode::class);
 	}
 
 	protected function clearPostalCodesTable(ObjectManager $manager) {
