@@ -18,7 +18,7 @@ class FixtureTest extends IntegrationTestCase {
 	 * @dataProvider getPlatformConfigs
 	 */
 	public function testImport($platform, $config, $requiredExtension) {
-		$this->initClient($requiredExtension, array('environment' => $platform, 'config' => $config));
+		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config]);
 
 		// [A] add some data which is meant to be removed by importing new data
 		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
@@ -31,7 +31,7 @@ class FixtureTest extends IntegrationTestCase {
 		$this->assertEquals(" 177\n", $output);
 
 		// [A] verify that old data has been removed
-		$this->assertCount(0, $this->getRepo()->findBy(array('country' => 'DE')));
+		$this->assertCount(0, $this->getRepo()->findBy(['country' => 'DE']));
 
 		// verify that new data was imported as expected
 		$this->assertCount(177, $this->getRepo()->findAll());

@@ -25,11 +25,11 @@ class CraueGeoBundle extends Bundle {
 	 * @param ContainerBuilder $container
 	 */
 	private function addRegisterMappingsPass(ContainerBuilder $container) {
-		$mappings = array(
+		$mappings = [
 			realpath(__DIR__ . '/Resources/config/doctrine-mapping') => 'Craue\GeoBundle\Entity',
-		);
+		];
 
-		$container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, array(), 'craue_geo.register_entity.postal_code'));
+		$container->addCompilerPass(DoctrineOrmMappingsPass::createXmlMappingDriver($mappings, [], 'craue_geo.register_entity.postal_code'));
 	}
 
 }

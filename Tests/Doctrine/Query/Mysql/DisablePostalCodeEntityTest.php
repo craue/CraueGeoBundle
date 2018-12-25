@@ -27,15 +27,15 @@ class DisablePostalCodeEntityTest extends IntegrationTestCase {
 	 * here, so just verify the relevant parts of the message. This has been fixed in ORM 2.3.1.
 	 */
 	public function testDisablePostalCodeEntity($platform, $config, $requiredExtension) {
-		$this->initClient($requiredExtension, array('environment' => 'disablePostalCodeEntity_' . $platform, 'config' => $config));
+		$this->initClient($requiredExtension, ['environment' => 'disablePostalCodeEntity_' . $platform, 'config' => $config]);
 
 		$this->getRepo();
 	}
 
 	public function dataDisablePostalCodeEntity() {
-		return self::duplicateTestDataForEachPlatform(array(
-			array(),
-		), 'config_disablePostalCodeEntity.yml');
+		return self::duplicateTestDataForEachPlatform([
+			[],
+		], 'config_disablePostalCodeEntity.yml');
 	}
 
 }

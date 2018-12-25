@@ -21,16 +21,16 @@ abstract class IntegrationTestCase extends WebTestCase {
 	const PLATFORM_POSTGRESQL = 'postgresql';
 
 	public static function getValidPlatformsWithRequiredExtensions() {
-		return array(
+		return [
 			self::PLATFORM_MYSQL => 'pdo_mysql',
 			self::PLATFORM_POSTGRESQL => 'pdo_pgsql',
-		);
+		];
 	}
 
 	/**
 	 * @var bool[]
 	 */
-	private static $databaseInitialized = array();
+	private static $databaseInitialized = [];
 
 	/**
 	 * @param string $testName The name of the test, set by PHPUnit when called directly as a {@code dataProvider}.
@@ -38,10 +38,10 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @return string[]
 	 */
 	public static function getPlatformConfigs($testName, $baseConfig = 'config.yml') {
-		$testData = array();
+		$testData = [];
 
 		foreach (self::getValidPlatformsWithRequiredExtensions() as $platform => $extension) {
-			$testData[] = array($platform, array($baseConfig, sprintf('config_flavor_%s.yml', $platform)), $extension);
+			$testData[] = [$platform, [$baseConfig, sprintf('config_flavor_%s.yml', $platform)], $extension];
 		}
 
 		return $testData;
@@ -52,7 +52,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @return array
 	 */
 	public static function duplicateTestDataForEachPlatform(array $allTestData, $baseConfig = 'config.yml') {
-		$testData = array();
+		$testData = [];
 
 		foreach ($allTestData as $oneTestData) {
 			foreach (self::getPlatformConfigs('', $baseConfig) as $envConf) {
@@ -169,7 +169,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * {@inheritDoc}
 	 */
-	protected static function createKernel(array $options = array()) {
+	protected static function createKernel(array $options = []) {
 		$environment = isset($options['environment']) ? $options['environment'] : 'test';
 		$configFile = isset($options['config']) ? $options['config'] : 'config.yml';
 
@@ -183,7 +183,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param bool $cleanDatabase If the database should be cleaned in case it already exists.
 	 * @return Client
 	 */
-	protected function initClient($requiredExtension, array $options = array(), $cleanDatabase = true) {
+	protected function initClient($requiredExtension, array $options = [], $cleanDatabase = true) {
 		if ($requiredExtension !== null && !in_array($requiredExtension, get_loaded_extensions(), true)) {
 			// !extension_loaded($requiredExtension) doesn't seem to work with HHVM as it returns false even though the extension is loaded
 			$this->markTestSkipped(sprintf('Extension "%s" is not loaded.', $requiredExtension));

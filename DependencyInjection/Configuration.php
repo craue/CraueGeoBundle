@@ -29,7 +29,7 @@ class Configuration implements ConfigurationInterface {
 
 		$rootNode
 			->children()
-				->enumNode('flavor')->values(array('none', 'mysql', 'postgresql'))->defaultValue('mysql')->end()
+				->enumNode('flavor')->values(['none', 'mysql', 'postgresql'])->defaultValue('mysql')->end()
 				->booleanNode('enable_postal_code_entity')->defaultValue(true)->end()
 				->arrayNode('functions')
 					->addDefaultsIfNotSet()

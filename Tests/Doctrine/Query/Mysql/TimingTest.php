@@ -18,14 +18,14 @@ class TimingTest extends IntegrationTestCase {
 	/**
 	 * @var bool[]
 	 */
-	private static $dummyDataAdded = array();
+	private static $dummyDataAdded = [];
 
 	protected function prepareDatabase($platform, $config, $requiredExtension) {
 		if (!array_key_exists($platform, self::$dummyDataAdded)) {
 			self::$dummyDataAdded[$platform] = false;
 		}
 
-		$this->initClient($requiredExtension, array('environment' => $platform, 'config' => $config), !self::$dummyDataAdded[$platform]);
+		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config], !self::$dummyDataAdded[$platform]);
 
 		// Only add the dummy data once (per platform) as it takes quite some time.
 		if (!self::$dummyDataAdded[$platform]) {

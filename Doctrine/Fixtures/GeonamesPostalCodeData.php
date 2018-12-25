@@ -35,7 +35,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 		$repo = $this->getRepository($manager);
 
 		$entriesAdded = 0;
-		$currentBatchEntries = array();
+		$currentBatchEntries = [];
 
 		$fcontents = file($filename);
 		for ($i = 0, $numLines = count($fcontents); $i < $numLines; ++$i) {
@@ -56,7 +56,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 			}
 
 			// skip duplicate entries already persisted
-			if ($repo->findOneBy(array('country' => $country, 'postalCode' => $postalCode)) !== null) {
+			if ($repo->findOneBy(['country' => $country, 'postalCode' => $postalCode]) !== null) {
 				continue;
 			}
 
@@ -73,7 +73,7 @@ abstract class GeonamesPostalCodeData implements FixtureInterface {
 			if ((($i + 1) % $this->batchSize) === 0) {
 				$manager->flush();
 				$manager->clear();
-				$currentBatchEntries = array();
+				$currentBatchEntries = [];
 				echo '.'; // progress indicator
 			}
 		}

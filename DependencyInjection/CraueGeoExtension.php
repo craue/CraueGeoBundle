@@ -34,16 +34,16 @@ class CraueGeoExtension extends Extension implements PrependExtensionInterface {
 		if ($config['flavor'] !== 'none') {
 			$functionClassesNamespace = sprintf('Craue\GeoBundle\Doctrine\Query\%s', ucfirst($config['flavor']));
 
-			$container->prependExtensionConfig('doctrine', array(
-				'orm' => array(
-					'dql' => array(
-						'numeric_functions' => array(
+			$container->prependExtensionConfig('doctrine', [
+				'orm' => [
+					'dql' => [
+						'numeric_functions' => [
 							$config['functions']['geo_distance'] => sprintf('%s\GeoDistance', $functionClassesNamespace),
 							$config['functions']['geo_distance_by_postal_code'] => sprintf('%s\GeoDistanceByPostalCode', $functionClassesNamespace),
-						),
-					),
-				),
-			));
+						],
+					],
+				],
+			]);
 		}
 	}
 

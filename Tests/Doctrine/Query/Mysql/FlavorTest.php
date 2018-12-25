@@ -20,7 +20,7 @@ class FlavorTest extends IntegrationTestCase {
 	 * @expectedExceptionMessage The value "invalid" is not allowed for path "craue_geo.flavor". Permissible values: "none", "mysql", "postgresql"
 	 */
 	public function testFlavorInvalid() {
-		$this->initClient(null, array('environment' => 'invalidFlavor', 'config' => array('config.yml', 'config_flavor_invalid.yml')));
+		$this->initClient(null, ['environment' => 'invalidFlavor', 'config' => ['config.yml', 'config_flavor_invalid.yml']]);
 	}
 
 	/**
@@ -30,7 +30,7 @@ class FlavorTest extends IntegrationTestCase {
 	 * @expectedExceptionMessage Error: Expected known function, got 'GEO_DISTANCE'
 	 */
 	public function testFlavorNone_geoDistance() {
-		$this->initClient(null, array('environment' => 'flavorNone', 'config' => array('config.yml', 'config_flavor_none.yml')));
+		$this->initClient(null, ['environment' => 'flavorNone', 'config' => ['config.yml', 'config_flavor_none.yml']]);
 
 		$this->getPoisPerGeoDistance(52.1, 13.1, 1);
 	}
@@ -42,7 +42,7 @@ class FlavorTest extends IntegrationTestCase {
 	 * @expectedExceptionMessage Error: Expected known function, got 'GEO_DISTANCE_BY_POSTAL_CODE'
 	 */
 	public function testFlavorNone_geoDistanceByPostalCode() {
-		$this->initClient(null, array('environment' => 'flavorNone', 'config' => array('config.yml', 'config_flavor_none.yml')));
+		$this->initClient(null, ['environment' => 'flavorNone', 'config' => ['config.yml', 'config_flavor_none.yml']]);
 
 		$this->getPoisPerGeoDistanceByPostalCode('DE', '123');
 	}
