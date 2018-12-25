@@ -2,7 +2,7 @@
 	"name": "craue/geo-bundle",
 	"type": "symfony-bundle",
 	"description": "Doctrine functions for calculating geographical distances in your Symfony project.",
-	"keywords": ["geo", "symfony2", "symfony3", "symfony4"],
+	"keywords": ["geo", "symfony3", "symfony4"],
 	"homepage": "https://github.com/craue/CraueGeoBundle",
 	"license": "MIT",
 	"authors": [
@@ -16,16 +16,16 @@
 		}
 	],
 	"require": {
-		"php": "^5.3.9|~7.0",
-		"doctrine/doctrine-bundle": "~1.3",
-		"doctrine/orm": "~2.3",
-		"symfony/framework-bundle": "~2.7|~3.0|~4.0"
+		"php": "~7.0",
+		"doctrine/doctrine-bundle": "^1.5.1",
+		"doctrine/orm": "^2.5.2",
+		"symfony/framework-bundle": "~3.4|~4.1"
 	},
 	"require-dev": {
-		"doctrine/data-fixtures": "~1.0",
-		"phpunit/phpunit": "^4.8.35|~5.7|~6.0",
-		"symfony/phpunit-bridge": "~3.2|~4.0",
-		"symfony/symfony": "~2.7|~3.0|~4.0"
+		"doctrine/data-fixtures": "^1.0.1",
+		"phpunit/phpunit": "^6.5.13|^7.5.1",
+		"symfony/phpunit-bridge": "~3.4|~4.1",
+		"symfony/symfony": "~3.4|~4.1"
 	},
 	"suggest": {
 		"doctrine/data-fixtures": "*"
@@ -41,7 +41,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.5.x-dev"
+			"dev-master": "1.6.x-dev"
 		}
 	}
 }
