@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.6.0] – 2019-01-06
+
+- dropped support for Symfony 2.7, 2.8, 3.0, 3.1, 3.2, 3.3, 4.0
+- dropped support for PHP 5.3, 5.4, 5.5, 5.6
+- dropped support for HHVM
+
+[1.6.0]: https://github.com/craue/CraueGeoBundle/compare/1.5.0...1.6.0
+
 ## [1.5.0] – 2017-12-13
 
 - [#16]: added support for Symfony 4.*
