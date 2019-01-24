@@ -14,7 +14,7 @@ matrix:
     - php: 7.0
       env: DEPS='lowest' SYMFONY_DEPRECATIONS_HELPER='413'
     - php: 7.3
-      env: DEPS='unmodified'
+      env: DEPS='unmodified' WITH_STATIC_ANALYSIS='yes'
     - php: 7.3
       env: SYMFONY_VERSION='4.1.*'
     - php: 7.3
@@ -50,7 +50,9 @@ before_script:
 
 script:
   # validate composer.json
-  - composer validate --strict --no-check-lock
+  - if [ -n "${WITH_STATIC_ANALYSIS:-}" ]; then composer validate --strict --no-check-lock; fi;
+  # run PHPStan
+  - if [ -n "${WITH_STATIC_ANALYSIS:-}" ]; then vendor/bin/phpstan analyse; fi;
   # run PHPUnit
   - vendor/bin/phpunit -v
 
