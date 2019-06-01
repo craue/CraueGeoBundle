@@ -1,9 +1,2 @@
-parameters:
-	level: 5
-	paths:
-		- %currentWorkingDirectory%
-	excludes_analyse:
-		- %currentWorkingDirectory%/Tests/*
-		- %currentWorkingDirectory%/vendor/*
-	ignoreErrors:
-		- '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)\.$#'
+includes:
+	- %currentWorkingDirectory%/phpstan-config.neon
