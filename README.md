@@ -132,7 +132,9 @@ php bin/console doctrine:fixtures:load --append --group=my_geo_data
 
 #### In both cases
 
-That's it. Of course you can use other data sources you have access to, and write a custom fixture to import it.
+That's it.
+
+You can also use other data sources you have access to, and write a custom fixture to import it.
 
 If you have out of memory issues when importing a large number of entries try adding the `--no-debug` switch to avoid
 logging every single Doctrine query.
