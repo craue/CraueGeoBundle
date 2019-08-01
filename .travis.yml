@@ -69,6 +69,10 @@ script:
   # run PHPUnit
   - vendor/bin/phpunit -v
 
+services:
+  - mysql
+  - postgresql
+
 notifications:
   email:
     on_success: always
