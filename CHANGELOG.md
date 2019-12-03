@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.7.0] – 2019-12-03
+
+- added support for Symfony 5.*
+- dropped support for Symfony 4.1
+
+[1.7.0]: https://github.com/craue/CraueGeoBundle/compare/1.6.0...1.7.0
+
 ## [1.6.0] – 2019-01-06
 
 - dropped support for Symfony 2.7, 2.8, 3.0, 3.1, 3.2, 3.3, 4.0
