@@ -1,6 +1,5 @@
 {
 	"name": "craue/geo-bundle",
-	"type": "symfony-bundle",
 	"description": "Doctrine functions for calculating geographical distances in your Symfony project.",
 	"keywords": ["geo", "symfony"],
 	"homepage": "https://github.com/craue/CraueGeoBundle",
