@@ -2,6 +2,9 @@ parameters:
 	level: 5
 	paths:
 		- .
+	autoload_files:
+		# TODO remove as soon as doctrine/persistence >= 2.0 is required
+		- Doctrine/Fixtures/GeonamesPostalCodeData.php
 	excludes_analyse:
 		- Tests/*
 		- vendor/*
