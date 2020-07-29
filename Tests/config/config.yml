@@ -12,7 +12,5 @@ doctrine:
     auto_mapping: true
 
 framework:
-  router:
-    resource: ~
   secret: whatever
   test: ~
