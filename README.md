@@ -102,49 +102,51 @@ Then import the fixture and remember to use the `--append` parameter.
 
 Choose the following steps depending on the version of DoctrineFixturesBundle you're using.
 
-#### Either: DoctrineFixturesBundle < 3.0
+<details>
+  <summary>DoctrineFixturesBundle < 3.0</summary>
 
-Load the fixture(s) in the given folder.
+  Load the fixture(s) in the given folder.
 
-```sh
-# in a shell
-php bin/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
-```
+  ```sh
+  # in a shell
+  php bin/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
+  ```
+</details>
 
-#### Or: DoctrineFixturesBundle >= 3.1
+<details>
+  <summary>DoctrineFixturesBundle >= 3.1</summary>
 
-You first need to register the fixture as a service with a group of your choice.
+  1. a) You first need to register the fixture as a service with a group of your choice.
 
-```yaml
-# in app/config/config.yml
-services:
-  my_geonames_postal_code_data:
-    class: MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\MyGeonamesPostalCodeData
-    public: false
-    tags:
-     - { name: doctrine.fixture.orm, group: my_geo_data }
-```
+  ```yaml
+  # in app/config/config.yml
+  services:
+    my_geonames_postal_code_data:
+      class: MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\MyGeonamesPostalCodeData
+      public: false
+      tags:
+       - { name: doctrine.fixture.orm, group: my_geo_data }
+  ```
 
-It's also possible to register all classes in a specific folder as services.
+  1. b) It's also possible to register all classes in a specific folder as services.
 
-```yaml
-# in app/config/config.yml
-services:
-  MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\:
-    resource: '../../src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo/*'
-    public: false
-    tags:
-     - { name: doctrine.fixture.orm, group: my_geo_data }
-```
+  ```yaml
+  # in app/config/config.yml
+  services:
+    MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\:
+      resource: '../../src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo/*'
+      public: false
+      tags:
+       - { name: doctrine.fixture.orm, group: my_geo_data }
+  ```
 
-Then, load the fixture(s) of that group.
+  2. Then, load the fixture(s) of that group.
 
-```sh
-# in a shell
-php bin/console doctrine:fixtures:load --append --group=my_geo_data
-```
-
-#### In both cases
+  ```sh
+  # in a shell
+  php bin/console doctrine:fixtures:load --append --group=my_geo_data
+  ```
+</details>
 
 That's it.
 
