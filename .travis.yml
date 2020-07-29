@@ -36,9 +36,12 @@ jobs:
       env: SYMFONY_VERSION='5.0.*' SYMFONY_DEPRECATIONS_HELPER='max[self]=0&max[direct]=2&max[indirect]=9'
     -
       php: 7.3
-      env: SYMFONY_VERSION='5.0.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[self]=0&max[direct]=2&max[indirect]=9'
+      env: SYMFONY_VERSION='5.1.*'
+    -
+      php: 7.3
+      env: SYMFONY_VERSION='5.2.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[self]=0&max[direct]=0&max[indirect]=41'
   allow_failures:
-    - env: SYMFONY_VERSION='5.0.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[self]=0&max[direct]=2&max[indirect]=9'
+    - env: SYMFONY_VERSION='5.2.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[self]=0&max[direct]=0&max[indirect]=41'
   fast_finish: true
 
 services:
