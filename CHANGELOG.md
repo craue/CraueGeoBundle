@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.8.0] – 2020-12-21
+
+- added support for PHP 8.0
+- dropped support for PHP 7.0, 7.1, 7.2
+- dropped support for Symfony 4.2, 4.3, 5.0
+
+[1.8.0]: https://github.com/craue/CraueGeoBundle/compare/1.7.0...1.8.0
+
 ## [1.7.0] – 2019-12-03
 
 - added support for Symfony 5.*
