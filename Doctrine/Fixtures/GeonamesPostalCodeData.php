@@ -90,7 +90,7 @@ abstract class BaseGeonamesPostalCodeData implements FixtureInterface {
 if (interface_exists(ObjectManager::class)) {
 	/**
 	 * @author Christian Raue <christian.raue@gmail.com>
-	 * @copyright 2011-2020 Christian Raue
+	 * @copyright 2011-2021 Christian Raue
 	 * @license http://opensource.org/licenses/mit-license.php MIT License
 	 */
 	abstract class GeonamesPostalCodeData extends BaseGeonamesPostalCodeData {
@@ -121,7 +121,7 @@ if (interface_exists(ObjectManager::class)) {
 } else {
 	/**
 	 * @author Christian Raue <christian.raue@gmail.com>
-	 * @copyright 2011-2020 Christian Raue
+	 * @copyright 2011-2021 Christian Raue
 	 * @license http://opensource.org/licenses/mit-license.php MIT License
 	 */
 	abstract class GeonamesPostalCodeData extends BaseGeonamesPostalCodeData {
