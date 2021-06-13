@@ -19,16 +19,16 @@
 		"php": "^7.3|^8",
 		"doctrine/doctrine-bundle": "^1.5.1|~2.0",
 		"doctrine/orm": "^2.5.2",
-		"symfony/config": "~3.4|~4.4|~5.1",
-		"symfony/dependency-injection": "~3.4|~4.4|~5.1",
-		"symfony/framework-bundle": "~3.4|~4.4|~5.1"
+		"symfony/config": "~3.4|~4.4|~5.2",
+		"symfony/dependency-injection": "~3.4|~4.4|~5.2",
+		"symfony/framework-bundle": "~3.4|~4.4|~5.2"
 	},
 	"require-dev": {
 		"doctrine/data-fixtures": "^1.0.1",
 		"doctrine/doctrine-fixtures-bundle": "~2.3|~3.1",
 		"phpunit/phpunit": "^9.4",
 		"symfony/phpunit-bridge": "~5.2",
-		"symfony/symfony": "~3.4.23|~4.4|~5.1"
+		"symfony/symfony": "~3.4.23|~4.4|~5.2"
 	},
 	"suggest": {
 		"doctrine/data-fixtures": "*"
@@ -44,7 +44,7 @@
 	},
 	"extra": {
 		"branch-alias": {
-			"dev-master": "1.8.x-dev"
+			"dev-master": "1.9.x-dev"
 		}
 	},
 	"config": {
