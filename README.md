@@ -1,6 +1,6 @@
 # Information
 
-[![Build Status](https://travis-ci.org/craue/CraueGeoBundle.svg?branch=master)](https://travis-ci.org/craue/CraueGeoBundle)
+[![Build Status](https://app.travis-ci.com/craue/CraueGeoBundle.svg?branch=master)](https://app.travis-ci.com/craue/CraueGeoBundle)
 
 CraueGeoBundle provides Doctrine functions for your Symfony project which allow you to calculate geographical distances within database queries.
 This bundle is independent of any web service, so once you got it running, it will keep running.
