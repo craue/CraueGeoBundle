@@ -8,7 +8,7 @@ jobs:
   include:
     - stage: smoke test 🕵️
       php: 7.3
-      env: DEPS='lowest' SYMFONY_DEPRECATIONS_HELPER='max[self]=2&max[direct]=122&max[indirect]=301'
+      env: DEPS='lowest' SYMFONY_DEPRECATIONS_HELPER='max[self]=2&max[direct]=120&max[indirect]=303'
     -
       php: 8.0
       env: DEPS='unmodified' WITH_STATIC_ANALYSIS='yes'

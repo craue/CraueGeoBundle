@@ -5,6 +5,9 @@ set -euv
 export COMPOSER_NO_INTERACTION=1
 composer self-update
 
+# install Symfony Flex
+composer require --no-progress --no-scripts --no-plugins symfony/flex
+
 case "${DEPS:-}" in
 	'lowest')
 		COMPOSER_UPDATE_ARGS='--prefer-lowest'
@@ -17,10 +20,8 @@ case "${DEPS:-}" in
 			composer config minimum-stability "${MIN_STABILITY}"
 		fi
 
-		composer remove --no-update symfony/framework-bundle
-
 		if [ -n "${SYMFONY_VERSION:-}" ]; then
-			composer require --no-update --dev symfony/symfony:"${SYMFONY_VERSION}"
+			composer config extra.symfony.require "${SYMFONY_VERSION}"
 		fi
 esac
 
@@ -28,4 +29,7 @@ if [ -n "${WITH_STATIC_ANALYSIS:-}" ]; then
 	composer require --no-update --dev "phpstan/phpstan:^0.12"
 fi
 
-composer update ${COMPOSER_UPDATE_ARGS:-}
+composer update ${COMPOSER_UPDATE_ARGS:-} --with-all-dependencies
+
+# revert changes applied by Flex recipes
+git reset --hard && git clean -df
