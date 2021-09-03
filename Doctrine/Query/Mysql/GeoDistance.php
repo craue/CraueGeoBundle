@@ -24,7 +24,7 @@ class GeoDistance extends FunctionNode {
 	protected $latDestination;
 	protected $lngDestination;
 
-	public function parse(Parser $parser) {
+	public function parse(Parser $parser) : void {
 		$parser->match(Lexer::T_IDENTIFIER);
 		$parser->match(Lexer::T_OPEN_PARENTHESIS);
 		$this->latOrigin = $parser->ArithmeticExpression();
@@ -37,7 +37,7 @@ class GeoDistance extends FunctionNode {
 		$parser->match(Lexer::T_CLOSE_PARENTHESIS);
 	}
 
-	public function getSql(SqlWalker $sqlWalker) {
+	public function getSql(SqlWalker $sqlWalker) : string {
 		/*
 		 * Giving each argument only once and using %1$s, %2$s, ... doesn't work. Would result in:
 		 * SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens

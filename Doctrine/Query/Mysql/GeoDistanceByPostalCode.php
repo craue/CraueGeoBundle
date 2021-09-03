@@ -22,7 +22,7 @@ class GeoDistanceByPostalCode extends FunctionNode {
 	protected $countryDestination;
 	protected $postalCodeDestination;
 
-	public function parse(Parser $parser) {
+	public function parse(Parser $parser) : void {
 		$parser->match(Lexer::T_IDENTIFIER);
 		$parser->match(Lexer::T_OPEN_PARENTHESIS);
 		$this->countryOrigin = $parser->StringPrimary();
@@ -35,7 +35,7 @@ class GeoDistanceByPostalCode extends FunctionNode {
 		$parser->match(Lexer::T_CLOSE_PARENTHESIS);
 	}
 
-	public function getSql(SqlWalker $sqlWalker) {
+	public function getSql(SqlWalker $sqlWalker) : string {
 		return sprintf(
 			'%s * ASIN(SQRT(POWER(SIN(((SELECT lat FROM craue_geo_postalcode WHERE country = %s AND postal_code = %s) - (SELECT lat FROM craue_geo_postalcode WHERE country = %s AND postal_code = %s)) * PI()/360), 2) + COS((SELECT lat FROM craue_geo_postalcode WHERE country = %s AND postal_code = %s) * PI()/180) * COS((SELECT lat FROM craue_geo_postalcode WHERE country = %s AND postal_code = %s) * PI()/180) * POWER(SIN(((SELECT lng FROM craue_geo_postalcode WHERE country = %s AND postal_code = %s) - (SELECT lng FROM craue_geo_postalcode WHERE country = %s AND postal_code = %s)) * PI()/360), 2)))',
 			GeoDistance::EARTH_DIAMETER,

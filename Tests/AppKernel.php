@@ -33,7 +33,7 @@ class AppKernel extends Kernel {
 		}
 	}
 
-	public function registerBundles() {
+	public function registerBundles() : iterable {
 		return [
 			new \Doctrine\Bundle\DoctrineBundle\DoctrineBundle(),
 			new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
@@ -52,7 +52,7 @@ class AppKernel extends Kernel {
 		}
 	}
 
-	public function getCacheDir() {
+	public function getCacheDir() : string {
 		if (array_key_exists('CACHE_DIR', $_ENV)) {
 			return $_ENV['CACHE_DIR'] . DIRECTORY_SEPARATOR . $this->environment;
 		}
@@ -60,7 +60,7 @@ class AppKernel extends Kernel {
 		return parent::getCacheDir();
 	}
 
-	public function getLogDir() {
+	public function getLogDir() : string {
 		if (array_key_exists('LOG_DIR', $_ENV)) {
 			return $_ENV['LOG_DIR'] . DIRECTORY_SEPARATOR . $this->environment;
 		}
