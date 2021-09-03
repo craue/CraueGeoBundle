@@ -34,6 +34,7 @@ jobs:
   fast_finish: true
 
 services:
+  - mysql
   - postgresql
 
 install:
@@ -64,10 +65,6 @@ script:
   - if [ -n "${WITH_STATIC_ANALYSIS:-}" ]; then vendor/bin/phpstan analyse; fi;
   # run PHPUnit
   - vendor/bin/phpunit -v
-
-services:
-  - mysql
-  - postgresql
 
 notifications:
   email:
