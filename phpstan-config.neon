@@ -7,7 +7,7 @@ parameters:
 		- vendor/*
 	ignoreErrors:
 		-
-			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\TreeBuilder::root\(\)\.$#'
+			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)\.$#'
 			path: DependencyInjection/Configuration.php
 		-
 			message: '#Parameter \$manager of method Craue\\GeoBundle\\Doctrine\\Fixtures\\GeonamesPostalCodeData::(getRepository|clearPostalCodesTable|addEntries)\(\) has invalid typehint type Doctrine\\Common\\Persistence\\ObjectManager\.$#'

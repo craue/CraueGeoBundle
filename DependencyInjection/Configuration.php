@@ -20,14 +20,7 @@ class Configuration implements ConfigurationInterface {
 	public function getConfigTreeBuilder() : TreeBuilder {
 		$treeBuilder = new TreeBuilder('craue_geo');
 
-		if (!method_exists($treeBuilder, 'getRootNode')) {
-			// TODO remove as soon as Symfony >= 4.2 is required
-			$rootNode = $treeBuilder->root('craue_geo');
-		} else {
-			$rootNode = $treeBuilder->getRootNode();
-		}
-
-		$rootNode
+		$treeBuilder->getRootNode()
 			->children()
 				->enumNode('flavor')->values(['none', 'mysql', 'postgresql'])->defaultValue('mysql')->end()
 				->booleanNode('enable_postal_code_entity')->defaultValue(true)->end()

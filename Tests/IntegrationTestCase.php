@@ -7,7 +7,6 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\BrowserKit\AbstractBrowser;
 use Symfony\Component\HttpKernel\KernelInterface;
@@ -183,8 +182,7 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param string|null $requiredExtension Required PHP extension.
 	 * @param array $options Options for creating the client.
 	 * @param bool $cleanDatabase If the database should be cleaned in case it already exists.
-	 * @return AbstractBrowser|Client
-	 * TODO remove Client return type as soon as Symfony >= 4.3 is required
+	 * @return AbstractBrowser
 	 */
 	protected function initClient($requiredExtension, array $options = [], $cleanDatabase = true) {
 		if ($requiredExtension !== null && !extension_loaded($requiredExtension)) {
