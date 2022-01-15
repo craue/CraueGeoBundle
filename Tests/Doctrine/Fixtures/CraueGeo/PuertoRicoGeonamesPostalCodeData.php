@@ -32,7 +32,7 @@ abstract class BasePuertoRicoGeonamesPostalCodeData extends GeonamesPostalCodeDa
 if (interface_exists(ObjectManager::class)) {
 	/**
 	 * @author Christian Raue <christian.raue@gmail.com>
-	 * @copyright 2011-2021 Christian Raue
+	 * @copyright 2011-2022 Christian Raue
 	 * @license http://opensource.org/licenses/mit-license.php MIT License
 	 */
 	class PuertoRicoGeonamesPostalCodeData extends BasePuertoRicoGeonamesPostalCodeData {
@@ -46,7 +46,7 @@ if (interface_exists(ObjectManager::class)) {
 } else {
 	/**
 	 * @author Christian Raue <christian.raue@gmail.com>
-	 * @copyright 2011-2021 Christian Raue
+	 * @copyright 2011-2022 Christian Raue
 	 * @license http://opensource.org/licenses/mit-license.php MIT License
 	 */
 	class PuertoRicoGeonamesPostalCodeData extends BasePuertoRicoGeonamesPostalCodeData {
