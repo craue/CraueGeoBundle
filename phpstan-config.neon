@@ -2,7 +2,7 @@ parameters:
 	level: 5
 	paths:
 		- .
-	excludes_analyse:
+	excludePaths:
 		- Tests/*
 		- vendor/*
 	ignoreErrors:
@@ -10,8 +10,8 @@ parameters:
 			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)\.$#'
 			path: DependencyInjection/Configuration.php
 		-
-			message: '#Parameter \$manager of method Craue\\GeoBundle\\Doctrine\\Fixtures\\GeonamesPostalCodeData::(getRepository|clearPostalCodesTable|addEntries)\(\) has invalid typehint type Doctrine\\Common\\Persistence\\ObjectManager\.$#'
+			message: '#^Parameter \$manager of method Craue\\GeoBundle\\Doctrine\\Fixtures\\GeonamesPostalCodeData::(getRepository|clearPostalCodesTable|addEntries)\(\) has invalid type Doctrine\\Common\\Persistence\\ObjectManager\.$#'
 			path: Doctrine/Fixtures/GeonamesPostalCodeData.php
 		-
-			message: '#Return typehint of method Craue\\GeoBundle\\Doctrine\\Fixtures\\GeonamesPostalCodeData::getRepository\(\) has invalid type Doctrine\\Common\\Persistence\\ObjectRepository\.$#'
+			message: '#^Method Craue\\GeoBundle\\Doctrine\\Fixtures\\GeonamesPostalCodeData::getRepository\(\) has invalid return type Doctrine\\Common\\Persistence\\ObjectRepository\.$#'
 			path: Doctrine/Fixtures/GeonamesPostalCodeData.php
