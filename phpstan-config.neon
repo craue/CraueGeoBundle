@@ -1,14 +1,12 @@
 parameters:
 	level: 5
+	treatPhpDocTypesAsCertain: false
 	paths:
 		- .
 	excludePaths:
 		- Tests/*
 		- vendor/*
 	ignoreErrors:
-		-
-			message: '#^Call to an undefined method Symfony\\Component\\Config\\Definition\\Builder\\NodeDefinition::children\(\)\.$#'
-			path: DependencyInjection/Configuration.php
 		-
 			message: '#^Parameter \$manager of method Craue\\GeoBundle\\Doctrine\\Fixtures\\GeonamesPostalCodeData::(getRepository|clearPostalCodesTable|addEntries)\(\) has invalid type Doctrine\\Common\\Persistence\\ObjectManager\.$#'
 			path: Doctrine/Fixtures/GeonamesPostalCodeData.php
