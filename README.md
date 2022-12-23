@@ -33,19 +33,6 @@ return [
 ];
 ```
 
-Or, for Symfony 3.4:
-
-```php
-// in app/AppKernel.php
-public function registerBundles() {
-	$bundles = [
-		// ...
-		new Craue\GeoBundle\CraueGeoBundle(),
-	];
-	// ...
-}
-```
-
 ## Prepare the table with geographical data needed for calculations
 
 The `GEO_DISTANCE_BY_POSTAL_CODE` function, if you'd like to use it, relies on some data which has to be added to your
@@ -85,7 +72,7 @@ Create a fixture class (in a separate folder to be able to load only this one) w
 namespace MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo;
 
 use Craue\GeoBundle\Doctrine\Fixtures\GeonamesPostalCodeData;
-use Doctrine\Common\Persistence\ObjectManager;
+use Doctrine\Persistence\ObjectManager;
 
 class MyGeonamesPostalCodeData extends GeonamesPostalCodeData {
 
@@ -100,26 +87,13 @@ class MyGeonamesPostalCodeData extends GeonamesPostalCodeData {
 Now, backup your database! Don't blame anyone else for data loss if something goes wrong.
 Then import the fixture and remember to use the `--append` parameter.
 
-Choose the following steps depending on the version of DoctrineFixturesBundle you're using.
-
 <details>
-  <summary>DoctrineFixturesBundle < 3.0</summary>
-
-  Load the fixture(s) in the given folder.
-
-  ```sh
-  # in a shell
-  php bin/console doctrine:fixtures:load --append --fixtures="src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo"
-  ```
-</details>
-
-<details>
-  <summary>DoctrineFixturesBundle >= 3.1</summary>
+  <summary>DoctrineFixturesBundle >= 3.3.2</summary>
 
   1. a) You first need to register the fixture as a service with a group of your choice.
 
   ```yaml
-  # in app/config/config.yml
+  # in config/config.yml
   services:
     my_geonames_postal_code_data:
       class: MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\MyGeonamesPostalCodeData
@@ -131,7 +105,7 @@ Choose the following steps depending on the version of DoctrineFixturesBundle yo
   1. b) It's also possible to register all classes in a specific folder as services.
 
   ```yaml
-  # in app/config/config.yml
+  # in config/config.yml
   services:
     MyCompany\MyBundle\Doctrine\Fixtures\CraueGeo\:
       resource: '../../src/MyCompany/MyBundle/Doctrine/Fixtures/CraueGeo/*'
@@ -221,7 +195,7 @@ $queryBuilder
 If you want to avoid registering the `GeoPostalCode` entity (and as a result, avoid creating the `craue_geo_postalcode` table) at all, add
 
 ```yaml
-# in app/config/config.yml
+# in config/config.yml
 craue_geo:
   enable_postal_code_entity: false
 ```
@@ -233,7 +207,7 @@ to your configuration.
 If you don't like the default names or need to avoid conflicts with other functions, you can set custom names:
 
 ```yaml
-# in app/config/config.yml
+# in config/config.yml
 craue_geo:
   functions:
     geo_distance: MY_VERY_OWN_GEO_DISTANCE_FUNCTION
