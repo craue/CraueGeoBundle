@@ -11,7 +11,7 @@ jobs:
       php: 8.0
       env: DEPS='lowest' SYMFONY_DEPRECATIONS_HELPER='max[self]=2&max[direct]=2&max[indirect]=382'
     -
-      php: 8.2
+      php: 8.1
       env: DEPS='unmodified' WITH_STATIC_ANALYSIS='yes' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
 
     - stage: test
