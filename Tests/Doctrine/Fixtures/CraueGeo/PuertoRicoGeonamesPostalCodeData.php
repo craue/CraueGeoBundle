@@ -12,7 +12,8 @@ use Doctrine\Persistence\ObjectManager;
 abstract class BasePuertoRicoGeonamesPostalCodeData extends GeonamesPostalCodeData {
 
 	// TODO update README with Doctrine\Persistence\ObjectManager type-hint as soon as doctrine/persistence >= 2.0 is required
-	protected final function _load($manager) {
+	final protected function _load($manager): void
+    {
 		$this->clearPostalCodesTable($manager);
 
 		$zip = new \ZipArchive();
@@ -39,7 +40,7 @@ if (interface_exists(ObjectManager::class)) {
 		/**
 		 * {@inheritDoc}
 		 */
-		public function load(ObjectManager $manager) {
+		public function load(ObjectManager $manager): void {
 			$this->_load($manager);
 		}
 	}
@@ -53,7 +54,7 @@ if (interface_exists(ObjectManager::class)) {
 		/**
 		 * {@inheritDoc}
 		 */
-		public function load(LegacyObjectManager $manager) {
+		public function load(LegacyObjectManager $manager): void {
 			$this->_load($manager);
 		}
 	}

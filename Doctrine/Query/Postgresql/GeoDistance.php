@@ -9,7 +9,7 @@ use Craue\GeoBundle\Doctrine\Query\Mysql\GeoDistance as BaseGeoDistance;
  */
 class GeoDistance extends BaseGeoDistance {
 
-	protected function getSqlWithPlaceholders() {
+	protected function getSqlWithPlaceholders(): string {
 		return '%s * ASIN(SQRT(POWER(SIN((CAST(%s AS numeric) - CAST(%s AS numeric)) * PI()/360), 2) + COS(%s * PI()/180) * COS(%s * PI()/180) * POWER(SIN((CAST(%s AS numeric) - CAST(%s AS numeric)) * PI()/360), 2)))';
 	}
 

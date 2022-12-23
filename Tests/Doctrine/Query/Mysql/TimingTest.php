@@ -13,14 +13,15 @@ use Craue\GeoBundle\Tests\IntegrationTestCase;
  */
 class TimingTest extends IntegrationTestCase {
 
-	const NUMBER_OF_POIS = 50000;
+	public const NUMBER_OF_POIS = 50000;
 
 	/**
 	 * @var bool[]
 	 */
-	private static $dummyDataAdded = [];
+	private static array $dummyDataAdded = [];
 
-	protected function prepareDatabase($platform, $config, $requiredExtension) {
+	protected function prepareDatabase($platform, $config, $requiredExtension): void
+    {
 		if (!array_key_exists($platform, self::$dummyDataAdded)) {
 			self::$dummyDataAdded[$platform] = false;
 		}
@@ -37,7 +38,8 @@ class TimingTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testTimingGeoDistance_withRadius($platform, $config, $requiredExtension) {
+	public function testTimingGeoDistance_withRadius($platform, $config, $requiredExtension): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$startTime = microtime(true);
@@ -45,13 +47,14 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan($platform === self::PLATFORM_POSTGRESQL ? 0.6 : 0.4, $duration);
 
-		$this->assertEquals(854, count($result));
+		$this->assertCount(854, $result);
 	}
 
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testTimingGeoDistance_withRadius_optimized($platform, $config, $requiredExtension) {
+	public function testTimingGeoDistance_withRadius_optimized($platform, $config, $requiredExtension): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$startTime = microtime(true);
@@ -59,13 +62,14 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan(0.4, $duration);
 
-		$this->assertEquals(854, count($result));
+		$this->assertCount(854, $result);
 	}
 
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testTimingGeoDistance_withoutRadius($platform, $config, $requiredExtension) {
+	public function testTimingGeoDistance_withoutRadius($platform, $config, $requiredExtension): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$startTime = microtime(true);
@@ -79,7 +83,8 @@ class TimingTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testTimingGeoDistanceByPostalCode_withRadius($platform, $config, $requiredExtension) {
+	public function testTimingGeoDistanceByPostalCode_withRadius($platform, $config, $requiredExtension): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$startTime = microtime(true);
@@ -87,13 +92,14 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan($platform === self::PLATFORM_POSTGRESQL ? 7 : 2.8, $duration);
 
-		$this->assertEquals(1703, count($result));
+		$this->assertCount(1703, $result);
 	}
 
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testTimingGeoDistanceByPostalCode_withRadius_optimized($platform, $config, $requiredExtension) {
+	public function testTimingGeoDistanceByPostalCode_withRadius_optimized($platform, $config, $requiredExtension): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$startTime = microtime(true);
@@ -101,13 +107,14 @@ class TimingTest extends IntegrationTestCase {
 		$duration = microtime(true) - $startTime;
 		$this->assertLessThan($platform === self::PLATFORM_POSTGRESQL ? 0.8 : 0.65, $duration);
 
-		$this->assertEquals(1703, count($result));
+		$this->assertCount(1703, $result);
 	}
 
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testTimingGeoDistanceByPostalCode_withoutRadius($platform, $config, $requiredExtension) {
+	public function testTimingGeoDistanceByPostalCode_withoutRadius($platform, $config, $requiredExtension): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$startTime = microtime(true);

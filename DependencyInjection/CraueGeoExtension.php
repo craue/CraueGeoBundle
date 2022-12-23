@@ -18,13 +18,13 @@ class CraueGeoExtension extends Extension implements PrependExtensionInterface {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function load(array $config, ContainerBuilder $container) {
+	public function load(array $configs, ContainerBuilder $container): void {
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
-	public function prepend(ContainerBuilder $container) {
+	public function prepend(ContainerBuilder $container): void {
 		$config = $this->processConfiguration(new Configuration(), $container->getExtensionConfig($this->getAlias()));
 
 		if ($config['enable_postal_code_entity'] === true) {

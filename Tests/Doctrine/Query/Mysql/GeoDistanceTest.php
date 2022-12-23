@@ -16,9 +16,10 @@ class GeoDistanceTest extends IntegrationTestCase {
 	/**
 	 * @var bool[]
 	 */
-	private static $dummyDataAdded = [];
+	private static array $dummyDataAdded = [];
 
-	protected function prepareDatabase($platform, $config, $requiredExtension) {
+	protected function prepareDatabase($platform, $config, $requiredExtension): void
+    {
 		if (!array_key_exists($platform, self::$dummyDataAdded)) {
 			self::$dummyDataAdded[$platform] = false;
 		}
@@ -36,7 +37,8 @@ class GeoDistanceTest extends IntegrationTestCase {
 	 * @dataProvider dataGeoDistance
 	 */
 	public function testGeoDistance($platform, $config, $requiredExtension,
-			$latOrigin, $lngOrigin, $latDestination, $lngDestination, $expectedDistance) {
+			$latOrigin, $lngOrigin, $latDestination, $lngDestination, $expectedDistance): void
+    {
 		$this->prepareDatabase($platform, $config, $requiredExtension);
 
 		$qb = $this->getRepo()->createQueryBuilder('poi')
@@ -51,7 +53,8 @@ class GeoDistanceTest extends IntegrationTestCase {
 		$this->assertEquals($expectedDistance, $qb->getQuery()->getSingleScalarResult());
 	}
 
-	public function dataGeoDistance() {
+	public function dataGeoDistance(): array
+    {
 		return self::duplicateTestDataForEachPlatform([
 			[52.392759, 13.065135, 52.392759, 13.065135, 0],
 			[52.392759, 13.065135, 52.525011, 13.369438, 25.32498093345365],

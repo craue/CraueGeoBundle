@@ -21,7 +21,8 @@ class FixtureTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testImportByUsingFixtureDirectly($platform, $config, $requiredExtension) {
+	public function testImportByUsingFixtureDirectly($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config]);
 
 		// [A] add some data which is meant to be removed by importing new data
@@ -44,7 +45,8 @@ class FixtureTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testImportByDoctrineFixturesBundle2Command($platform, $config, $requiredExtension) {
+	public function testImportByDoctrineFixturesBundle2Command($platform, $config, $requiredExtension): void
+    {
 		if (class_exists(SymfonyFixturesLoader::class)) {
 			$this->markTestSkipped('DoctrineFixturesBundle >= 3.0 does not allow loading fixtures from a directory anymore.');
 		}
@@ -70,7 +72,8 @@ class FixtureTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider dataImportByDoctrineFixturesBundle3Command
 	 */
-	public function testImportByDoctrineFixturesBundle3Command($platform, $config, $requiredExtension) {
+	public function testImportByDoctrineFixturesBundle3Command($platform, $config, $requiredExtension): void
+    {
 		if (!interface_exists(FixtureGroupInterface::class)) {
 			$this->markTestSkipped('DoctrineFixturesBundle < 3.1 does not support fixture groups.');
 		}
@@ -93,7 +96,8 @@ class FixtureTest extends IntegrationTestCase {
 		$this->assertCount(177, $this->getRepo()->findAll());
 	}
 
-	public function dataImportByDoctrineFixturesBundle3Command() {
+	public function dataImportByDoctrineFixturesBundle3Command(): array
+    {
 		return self::duplicateTestDataForEachPlatform([
 			[],
 		], 'config_fixtureAsAService.yml');
@@ -102,7 +106,8 @@ class FixtureTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider dataImportByDoctrineFixturesBundle3CommandWithAutoRegistration
 	 */
-	public function testImportByDoctrineFixturesBundle3CommandWithAutoRegistration($platform, $config, $requiredExtension) {
+	public function testImportByDoctrineFixturesBundle3CommandWithAutoRegistration($platform, $config, $requiredExtension): void
+    {
 		if (!interface_exists(FixtureGroupInterface::class)) {
 			$this->markTestSkipped('DoctrineFixturesBundle < 3.1 does not support fixture groups.');
 		}
@@ -125,13 +130,15 @@ class FixtureTest extends IntegrationTestCase {
 		$this->assertCount(177, $this->getRepo()->findAll());
 	}
 
-	public function dataImportByDoctrineFixturesBundle3CommandWithAutoRegistration() {
+	public function dataImportByDoctrineFixturesBundle3CommandWithAutoRegistration(): array
+    {
 		return self::duplicateTestDataForEachPlatform([
 			[],
 		], 'config_fixtureAsAService_autoRegistration.yml');
 	}
 
-	private static function executeCommand(Application $application, $command, array $options = []) {
+	private static function executeCommand(Application $application, string $command, array $options = []): string
+    {
 		$options = array_merge($options, [
 			'--env' => $application->getKernel()->getEnvironment(),
 			'--no-debug' => null,
