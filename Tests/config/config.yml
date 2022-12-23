@@ -14,6 +14,7 @@ doctrine:
 framework:
   secret: whatever
   test: ~
+  http_method_override: false
 
 # workaround for symfony/framework-bundle not loading its annotations config when doctrine/annotations is installed only as a dev dependency resulting in non-existent service "annotation_reader"
 imports:

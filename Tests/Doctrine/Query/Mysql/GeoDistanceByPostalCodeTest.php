@@ -39,7 +39,7 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 
 		$this->assertCount(2, $result);
 		$this->assertEquals(0, $result[0]['distance']);
-		$this->assertEquals(25.324980933453528, $result[1]['distance']);
+		$this->assertEquals(25.3249809334535, $result[1]['distance']);
 	}
 
 	/**
