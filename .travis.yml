@@ -28,9 +28,12 @@ jobs:
       env: SYMFONY_VERSION='6.0.*' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
     -
       php: 8.1
-      env: SYMFONY_VERSION='6.1.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
+      env: SYMFONY_VERSION='6.1.*' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
+    -
+      php: 8.2
+      env: SYMFONY_VERSION='6.2.*' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
   allow_failures:
-    - env: SYMFONY_VERSION='6.1.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
+    - env: SYMFONY_VERSION='6.3.*' MIN_STABILITY='dev' SYMFONY_DEPRECATIONS_HELPER='max[indirect]=1'
   fast_finish: true
 
 services:
