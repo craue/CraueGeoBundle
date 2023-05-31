@@ -15,6 +15,8 @@ class CraueGeoBundle extends Bundle {
 
 	/**
 	 * {@inheritDoc}
+     *
+     * @return void
 	 */
 	public function build(ContainerBuilder $container) {
 		parent::build($container);

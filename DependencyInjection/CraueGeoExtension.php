@@ -17,6 +17,8 @@ class CraueGeoExtension extends Extension implements PrependExtensionInterface {
 
 	/**
 	 * {@inheritDoc}
+     *
+     * @return void
 	 */
 	public function load(array $config, ContainerBuilder $container) {
 	}
