@@ -18,7 +18,8 @@ class FlavorTest extends IntegrationTestCase {
 	/**
 	 * Ensure that only valid values can be used for the flavor.
 	 */
-	public function testFlavorInvalid() {
+	public function testFlavorInvalid(): void
+    {
 		$this->expectException(InvalidConfigurationException::class);
 		$this->expectExceptionMessage('The value "invalid" is not allowed for path "craue_geo.flavor". Permissible values: "none", "mysql", "postgresql"');
 
@@ -28,7 +29,8 @@ class FlavorTest extends IntegrationTestCase {
 	/**
 	 * Ensure that function GEO_DISTANCE is not registered when using flavor 'none'.
 	 */
-	public function testFlavorNone_geoDistance() {
+	public function testFlavorNone_geoDistance(): void
+    {
 		$this->initClient(null, ['environment' => 'flavorNone', 'config' => ['config.yml', 'config_flavor_none.yml']]);
 
 		$this->expectException(QueryException::class);
@@ -40,7 +42,8 @@ class FlavorTest extends IntegrationTestCase {
 	/**
 	 * Ensure that function GEO_DISTANCE_BY_POSTAL_CODE is not registered when using flavor 'none'.
 	 */
-	public function testFlavorNone_geoDistanceByPostalCode() {
+	public function testFlavorNone_geoDistanceByPostalCode(): void
+    {
 		$this->initClient(null, ['environment' => 'flavorNone', 'config' => ['config.yml', 'config_flavor_none.yml']]);
 
 		$this->expectException(QueryException::class);

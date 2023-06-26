@@ -1,5 +1,14 @@
 # Changelog
 
+## [2.0.0] – 2022-xx
+
+- added strong php types
+- dropped support for Php 7
+- dropped support for Symfony 5.3
+- drop support of doctrine/persistence v2
+
+[2.0.0]: https://github.com/craue/CraueGeoBundle/compare/1.9.0...2.0.0
+
 ## [1.9.0] – 2022-01-24
 
 - added support for PHP 8.0

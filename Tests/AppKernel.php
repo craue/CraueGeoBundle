@@ -8,7 +8,7 @@ use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel {
 
-	private $configFiles;
+	private array $configFiles;
 
 	public function __construct($environment, $configFiles) {
 		parent::__construct($environment, true);
@@ -42,7 +42,7 @@ class AppKernel extends Kernel {
 		];
 	}
 
-	public function registerContainerConfiguration(LoaderInterface $loader) {
+	public function registerContainerConfiguration(LoaderInterface $loader): void {
 		if (!is_array($this->configFiles)) {
 			$this->configFiles = (array) $this->configFiles;
 		}
@@ -68,11 +68,13 @@ class AppKernel extends Kernel {
 		return parent::getLogDir();
 	}
 
-	public function serialize() {
+	public function serialize(): string
+    {
 		return serialize([$this->environment, $this->configFiles]);
 	}
 
-	public function unserialize($data) {
+	public function unserialize($data): void
+    {
 		list($environment, $configFiles) = unserialize($data);
 		$this->__construct($environment, $configFiles);
 	}

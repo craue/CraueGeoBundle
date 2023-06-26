@@ -2,9 +2,11 @@
 
 namespace Craue\GeoBundle\Doctrine\Query\Mysql;
 
+use Doctrine\ORM\Query\AST\ArithmeticExpression;
 use Doctrine\ORM\Query\AST\Functions\FunctionNode;
 use Doctrine\ORM\Query\Lexer;
 use Doctrine\ORM\Query\Parser;
+use Doctrine\ORM\Query\QueryException;
 use Doctrine\ORM\Query\SqlWalker;
 
 /**
@@ -17,14 +19,17 @@ use Doctrine\ORM\Query\SqlWalker;
  */
 class GeoDistance extends FunctionNode {
 
-	const EARTH_DIAMETER = 12742; // 2 * Earth's radius (6371 km)
+	public const EARTH_DIAMETER = 12742; // 2 * Earth's radius (6371 km)
 
-	protected $latOrigin;
-	protected $lngOrigin;
-	protected $latDestination;
-	protected $lngDestination;
+	protected ArithmeticExpression $latOrigin;
+	protected ArithmeticExpression $lngOrigin;
+	protected ArithmeticExpression $latDestination;
+	protected ArithmeticExpression $lngDestination;
 
-	public function parse(Parser $parser) : void {
+    /**
+     * @throws QueryException
+     */
+    public function parse(Parser $parser) : void {
 		$parser->match(Lexer::T_IDENTIFIER);
 		$parser->match(Lexer::T_OPEN_PARENTHESIS);
 		$this->latOrigin = $parser->ArithmeticExpression();
@@ -56,7 +61,8 @@ class GeoDistance extends FunctionNode {
 		);
 	}
 
-	protected function getSqlWithPlaceholders() {
+	protected function getSqlWithPlaceholders(): string
+    {
 		return '%s * ASIN(SQRT(POWER(SIN((%s - %s) * PI()/360), 2) + COS(%s * PI()/180) * COS(%s * PI()/180) * POWER(SIN((%s - %s) * PI()/360), 2)))';
 	}
 

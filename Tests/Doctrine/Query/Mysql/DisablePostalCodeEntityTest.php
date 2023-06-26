@@ -19,7 +19,8 @@ class DisablePostalCodeEntityTest extends IntegrationTestCase {
 	 *
 	 * @dataProvider dataDisablePostalCodeEntity
 	 */
-	public function testDisablePostalCodeEntity($platform, $config, $requiredExtension) {
+	public function testDisablePostalCodeEntity($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => 'disablePostalCodeEntity_' . $platform, 'config' => $config]);
 
 		$this->expectException(MappingException::class);
@@ -33,7 +34,8 @@ class DisablePostalCodeEntityTest extends IntegrationTestCase {
 		$this->getRepo();
 	}
 
-	public function dataDisablePostalCodeEntity() {
+	public static function dataDisablePostalCodeEntity(): array
+    {
 		return self::duplicateTestDataForEachPlatform([
 			[],
 		], 'config_disablePostalCodeEntity.yml');

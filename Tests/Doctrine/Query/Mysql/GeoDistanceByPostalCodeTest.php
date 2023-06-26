@@ -16,7 +16,8 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testNoResults($platform, $config, $requiredExtension) {
+	public function testNoResults($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config]);
 
 		$result = $this->getPoisPerGeoDistanceByPostalCode('DE', '10551');
@@ -27,7 +28,8 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testDistance($platform, $config, $requiredExtension) {
+	public function testDistance($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config]);
 
 		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
@@ -37,13 +39,14 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 
 		$this->assertCount(2, $result);
 		$this->assertEquals(0, $result[0]['distance']);
-		$this->assertEquals(25.324980933453528, $result[1]['distance']);
+		$this->assertEquals(25.3249809334535, $result[1]['distance']);
 	}
 
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testUnknownPostalCode_withRadius($platform, $config, $requiredExtension) {
+	public function testUnknownPostalCode_withRadius($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config]);
 
 		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);
@@ -57,7 +60,8 @@ class GeoDistanceByPostalCodeTest extends IntegrationTestCase {
 	/**
 	 * @dataProvider getPlatformConfigs
 	 */
-	public function testUnknownPostalCode_withoutRadius($platform, $config, $requiredExtension) {
+	public function testUnknownPostalCode_withoutRadius($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => $platform, 'config' => $config]);
 
 		$this->persistGeoPostalCode('DE', '14473', 52.392759, 13.065135);

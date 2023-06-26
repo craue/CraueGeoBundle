@@ -18,10 +18,11 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 abstract class IntegrationTestCase extends WebTestCase {
 
-	const PLATFORM_MYSQL = 'mysql';
-	const PLATFORM_POSTGRESQL = 'postgresql';
+	public const PLATFORM_MYSQL = 'mysql';
+	public const PLATFORM_POSTGRESQL = 'postgresql';
 
-	public static function getValidPlatformsWithRequiredExtensions() {
+	public static function getValidPlatformsWithRequiredExtensions(): array
+    {
 		return [
 			self::PLATFORM_MYSQL => 'pdo_mysql',
 			self::PLATFORM_POSTGRESQL => 'pdo_pgsql',
@@ -31,14 +32,15 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * @var bool[]
 	 */
-	private static $databaseInitialized = [];
+	private static array $databaseInitialized = [];
 
 	/**
 	 * @param string $testName The name of the test, set by PHPUnit when called directly as a {@code dataProvider}.
 	 * @param string $baseConfig The base config filename.
-	 * @return string[]
+	 * @return array<int, array<int, mixed>>
 	 */
-	public static function getPlatformConfigs($testName, $baseConfig = 'config.yml') {
+	public static function getPlatformConfigs(string $testName, string $baseConfig = 'config.yml'): array
+    {
 		$testData = [];
 
 		foreach (self::getValidPlatformsWithRequiredExtensions() as $platform => $extension) {
@@ -48,11 +50,8 @@ abstract class IntegrationTestCase extends WebTestCase {
 		return $testData;
 	}
 
-	/**
-	 * @param array $allTestData
-	 * @return array
-	 */
-	public static function duplicateTestDataForEachPlatform(array $allTestData, $baseConfig = 'config.yml') {
+	public static function duplicateTestDataForEachPlatform(array $allTestData, string $baseConfig = 'config.yml'): array
+    {
 		$testData = [];
 
 		foreach ($allTestData as $oneTestData) {
@@ -65,13 +64,13 @@ abstract class IntegrationTestCase extends WebTestCase {
 	}
 
 	/**
-	 * @param double $lat
-	 * @param double $lng
-	 * @param double $maxRadiusInKm
-	 * @param bool $addRadiusOptimization
 	 * @return GeoPostalCode[]
 	 */
-	protected function getPoisPerGeoDistance($lat, $lng, $maxRadiusInKm = null, $addRadiusOptimization = false) {
+	protected function getPoisPerGeoDistance(float $lat,
+                                             float $lng,
+                                             ?float $maxRadiusInKm = null,
+                                             bool  $addRadiusOptimization = false): array
+    {
 		$distanceFunction = 'GEO_DISTANCE(:lat, :lng, poi.lat, poi.lng)';
 
 		$qb = $this->getRepo()->createQueryBuilder('poi')
@@ -97,13 +96,13 @@ abstract class IntegrationTestCase extends WebTestCase {
 	}
 
 	/**
-	 * @param string $country
-	 * @param string $postalCode
-	 * @param double $maxRadiusInKm
-	 * @param bool $addRadiusOptimization
 	 * @return GeoPostalCode[]
 	 */
-	protected function getPoisPerGeoDistanceByPostalCode($country, $postalCode, $maxRadiusInKm = null, $addRadiusOptimization = false) {
+	protected function getPoisPerGeoDistanceByPostalCode(string $country,
+                                                         string $postalCode,
+                                                         ?float $maxRadiusInKm = null,
+                                                         bool   $addRadiusOptimization = false): array
+    {
 		$distanceFunction = 'GEO_DISTANCE_BY_POSTAL_CODE(:country, :postalCode, poi.country, poi.postalCode)';
 
 		$qb = $this->getRepo()->createQueryBuilder('poi')
@@ -140,12 +139,9 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * Adds the radius optimization mentioned in {@see http://www.scribd.com/doc/2569355/Geo-Distance-Search-with-MySQL} (pages 11-13) to
 	 * the given {@code QueryBuilder} instance.
-	 * @param QueryBuilder $qb
-	 * @param double $latOrigin
-	 * @param double $lngOrigin
-	 * @param double $maxRadiusInKm
 	 */
-	private function addRadiusOptimization(QueryBuilder $qb, $latOrigin, $lngOrigin, $maxRadiusInKm) {
+	private function addRadiusOptimization(QueryBuilder $qb, float $latOrigin, float $lngOrigin, float $maxRadiusInKm): void
+    {
 		$latDistance = 111.2; // distance between two latitudes is about 111.2 km
 		$latDiff = $maxRadiusInKm / $latDistance;
 		$lngDiff = $maxRadiusInKm / abs(cos(deg2rad($latOrigin)) * $latDistance);
@@ -163,7 +159,8 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * @return boolean Whether the database platform supports using aliases in the HAVING clause.
 	 */
-	private function platformSupportsAliasInHavingClause() {
+	private function platformSupportsAliasInHavingClause(): bool
+    {
 		return $this->getEntityManager()->getConnection()->getDatabasePlatform()->getName() !== self::PLATFORM_POSTGRESQL;
 	}
 
@@ -182,9 +179,9 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param string|null $requiredExtension Required PHP extension.
 	 * @param array $options Options for creating the client.
 	 * @param bool $cleanDatabase If the database should be cleaned in case it already exists.
-	 * @return AbstractBrowser
 	 */
-	protected function initClient($requiredExtension, array $options = [], $cleanDatabase = true) {
+	protected function initClient(?string $requiredExtension, array $options = [], bool $cleanDatabase = true): AbstractBrowser
+    {
 		if ($requiredExtension !== null && !extension_loaded($requiredExtension)) {
 			$this->markTestSkipped(sprintf('Extension "%s" is not loaded.', $requiredExtension));
 		}
@@ -203,7 +200,8 @@ abstract class IntegrationTestCase extends WebTestCase {
 		return $client;
 	}
 
-	protected function rebuildDatabase() {
+	protected function rebuildDatabase(): void
+    {
 		$em = $this->getEntityManager();
 		$metadata = $em->getMetadataFactory()->getAllMetadata();
 		$schemaTool = new SchemaTool($em);
@@ -214,13 +212,9 @@ abstract class IntegrationTestCase extends WebTestCase {
 
 	/**
 	 * Persists a {@code GeoPostalCode}.
-	 * @param string $country
-	 * @param string $postalCode
-	 * @param double $lat
-	 * @param double $lng
-	 * @return GeoPostalCode
 	 */
-	protected function persistGeoPostalCode($country, $postalCode, $lat, $lng) {
+	protected function persistGeoPostalCode(string $country, string $postalCode, float $lat, float $lng): GeoPostalCode
+    {
 		$entity = new GeoPostalCode();
 		$entity->setCountry($country);
 		$entity->setPostalCode($postalCode);
@@ -236,17 +230,17 @@ abstract class IntegrationTestCase extends WebTestCase {
 
 	/**
 	 * Persists a number of {@code GeoPostalCode}s using non-random dummy data.
-	 * @param int $number
 	 */
-	protected function persistDummyGeoPostalCodes($number) {
+	protected function persistDummyGeoPostalCodes(int $number): void
+    {
 		$em = $this->getEntityManager();
 
 		for ($i = 0; $i < $number; ++$i) {
 			$entity = new GeoPostalCode();
 			$entity->setCountry('DE');
-			$entity->setPostalCode($i);
-			$entity->setLat('52.'.$i);
-			$entity->setLng('13.'.$i);
+			$entity->setPostalCode((string) $i);
+			$entity->setLat((float) ('52.' . $i));
+			$entity->setLng((float) ('13.'.$i));
 			$em->persist($entity);
 
 			if ((($i + 1) % 10000) === 0) {
@@ -261,7 +255,8 @@ abstract class IntegrationTestCase extends WebTestCase {
 	/**
 	 * Removes all {@code GeoPostalCode}s.
 	 */
-	protected function removeAllGeoPostalCodes() {
+	protected function removeAllGeoPostalCodes(): void
+    {
 		$em = $this->getEntityManager();
 
 		foreach ($this->getRepo()->findAll() as $entity) {
@@ -271,17 +266,13 @@ abstract class IntegrationTestCase extends WebTestCase {
 		$em->flush();
 	}
 
-	/**
-	 * @return EntityManager
-	 */
-	protected function getEntityManager() {
+	protected function getEntityManager(): EntityManager
+    {
 		return $this->getService('doctrine')->getManager();
 	}
 
-	/**
-	 * @return EntityRepository
-	 */
-	protected function getRepo() {
+	protected function getRepo(): EntityRepository
+    {
 		return $this->getEntityManager()->getRepository(GeoPostalCode::class);
 	}
 
@@ -289,7 +280,8 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param string $id The service identifier.
 	 * @return object The associated service.
 	 */
-	protected function getService($id) {
+	protected function getService(string $id): object
+    {
 		return static::$kernel->getContainer()->get($id);
 	}
 

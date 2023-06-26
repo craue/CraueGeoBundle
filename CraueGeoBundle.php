@@ -16,15 +16,13 @@ class CraueGeoBundle extends Bundle {
 	/**
 	 * {@inheritDoc}
 	 */
-	public function build(ContainerBuilder $container) {
+	public function build(ContainerBuilder $container): void {
 		parent::build($container);
 		$this->addRegisterMappingsPass($container);
 	}
 
-	/**
-	 * @param ContainerBuilder $container
-	 */
-	private function addRegisterMappingsPass(ContainerBuilder $container) {
+	private function addRegisterMappingsPass(ContainerBuilder $container): void
+    {
 		$mappings = [
 			realpath(__DIR__ . '/Resources/config/doctrine-mapping') => 'Craue\GeoBundle\Entity',
 		];

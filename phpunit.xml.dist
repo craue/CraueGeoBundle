@@ -2,16 +2,17 @@
 <phpunit
 		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 		xsi:noNamespaceSchemaLocation="vendor/phpunit/phpunit/phpunit.xsd"
-		backupGlobals="false"
 		cacheResult="false"
 		colors="true"
 		failOnRisky="true"
 		failOnWarning="true">
+
 	<testsuites>
 		<testsuite name="CraueGeoBundle">
-			<directory suffix="Test.php">Tests</directory>
+			<directory>Tests</directory>
 		</testsuite>
 	</testsuites>
+
 	<php>
 		<env name="SHELL_VERBOSITY" value="-1" />
 		<!--
@@ -20,6 +21,7 @@
 		-->
 	</php>
 	<listeners>
+
 		<listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
 	</listeners>
 </phpunit>

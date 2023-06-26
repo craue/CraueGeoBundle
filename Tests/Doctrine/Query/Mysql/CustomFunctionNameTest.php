@@ -19,7 +19,8 @@ class CustomFunctionNameTest extends IntegrationTestCase {
 	 *
 	 * @dataProvider dataCustomFunctionName
 	 */
-	public function testCustomFunctionName($platform, $config, $requiredExtension) {
+	public function testCustomFunctionName($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => 'customFunctionName_' . $platform, 'config' => $config]);
 
 		$this->assertSame(sprintf('Craue\GeoBundle\Doctrine\Query\%s\GeoDistance', ucfirst($platform)),
@@ -28,7 +29,8 @@ class CustomFunctionNameTest extends IntegrationTestCase {
 				$this->getEntityManager()->getConfiguration()->getCustomNumericFunction('CRAUE_GEO_DISTANCE_BY_POSTAL_CODE'));
 	}
 
-	public function dataCustomFunctionName() {
+	public static function dataCustomFunctionName(): array
+    {
 		return self::duplicateTestDataForEachPlatform([
 			[],
 		], 'config_customFunctionName.yml');
@@ -39,13 +41,15 @@ class CustomFunctionNameTest extends IntegrationTestCase {
 	 *
 	 * @dataProvider dataOverrideFunction
 	 */
-	public function testOverrideFunction($platform, $config, $requiredExtension) {
+	public function testOverrideFunction($platform, $config, $requiredExtension): void
+    {
 		$this->initClient($requiredExtension, ['environment' => 'overrideFunction_' . $platform, 'config' => $config]);
 
 		$this->assertSame(GeoDistance::class, $this->getEntityManager()->getConfiguration()->getCustomNumericFunction('MY_GEO_DISTANCE'));
 	}
 
-	public function dataOverrideFunction() {
+	public static function dataOverrideFunction(): array
+    {
 		return self::duplicateTestDataForEachPlatform([
 			[],
 		], 'config_overrideFunction.yml');
