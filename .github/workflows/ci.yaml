@@ -31,7 +31,8 @@ jobs:
 
     # service containers to run with `postgres-job`
     services:
-      # label used to access the service container
+
+      # https://docs.github.com/en/actions/using-containerized-services/creating-postgresql-service-containers
       postgres:
         # Docker Hub image
         image: postgres:latest
@@ -51,18 +52,24 @@ jobs:
           --health-timeout 5s
           --health-retries 5
 
-    env:
-      DB_DATABASE: test
-      DB_USER: root
-      DB_PASSWORD: root
+      # https://atlasgo.io/guides/testing/github-actions
+      mysql:
+        image: mysql:8.0.29
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: test
+        ports:
+          - "3306:3306"
+        options: >-
+          --health-cmd "mysqladmin ping -proot"
+          --health-interval 10s
+          --health-start-period 10s
+          --health-timeout 5s
+          --health-retries 10
+
 
     name: PHP ${{ matrix.php }} - ${{ matrix.symfony-version }} - ${{ matrix.stability }}
     steps:
-      - name: Set up MySQL
-        run: |
-          #sudo systemctl start mysql
-          sudo /etc/init.d/mysql start
-          mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
       # basically git clone
       - uses: actions/checkout@v3
