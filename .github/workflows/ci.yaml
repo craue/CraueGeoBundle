@@ -26,6 +26,31 @@ jobs:
             symfony-version: 6.3.*
             stability: prefer-stable
 
+    # Docker Hub image that `postgres-job` executes in
+    container: node:latest
+
+    # service containers to run with `postgres-job`
+    services:
+      # label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres:latest
+        # service environment variables
+        # `POSTGRES_HOST` is `postgres`
+        env:
+          POSTGRES_DB: test
+          POSTGRES_PASSWORD: root
+          POSTGRES_PORT: 5432
+          POSTGRES_USER: root
+        ports:
+          - 5432:5432
+        # set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
     env:
       DB_DATABASE: test
       DB_USER: root
@@ -51,7 +76,7 @@ jobs:
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
-          extensions: pcov, pdo, pdo_pgsql
+          extensions: pcov, pdo, pdo_mysql, pdo_pgsql
           coverage: pcov
 
       - name: Install dependencies

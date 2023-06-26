@@ -179,7 +179,6 @@ abstract class IntegrationTestCase extends WebTestCase {
 	 * @param string|null $requiredExtension Required PHP extension.
 	 * @param array $options Options for creating the client.
 	 * @param bool $cleanDatabase If the database should be cleaned in case it already exists.
-	 * @return AbstractBrowser
 	 */
 	protected function initClient(?string $requiredExtension, array $options = [], bool $cleanDatabase = true): AbstractBrowser
     {
