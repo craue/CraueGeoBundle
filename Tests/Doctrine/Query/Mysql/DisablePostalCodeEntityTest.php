@@ -34,7 +34,7 @@ class DisablePostalCodeEntityTest extends IntegrationTestCase {
 		$this->getRepo();
 	}
 
-	public function dataDisablePostalCodeEntity(): array
+	public static function dataDisablePostalCodeEntity(): array
     {
 		return self::duplicateTestDataForEachPlatform([
 			[],

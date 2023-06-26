@@ -65,7 +65,7 @@ class FixtureTest extends IntegrationTestCase {
 		$this->assertCount(177, $this->getRepo()->findAll());
 	}
 
-	public function dataImportByDoctrineFixturesBundle3Command(): array
+	public static function dataImportByDoctrineFixturesBundle3Command(): array
     {
 		return self::duplicateTestDataForEachPlatform([
 			[],

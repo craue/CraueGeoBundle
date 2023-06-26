@@ -29,7 +29,7 @@ class CustomFunctionNameTest extends IntegrationTestCase {
 				$this->getEntityManager()->getConfiguration()->getCustomNumericFunction('CRAUE_GEO_DISTANCE_BY_POSTAL_CODE'));
 	}
 
-	public function dataCustomFunctionName(): array
+	public static function dataCustomFunctionName(): array
     {
 		return self::duplicateTestDataForEachPlatform([
 			[],
@@ -48,7 +48,7 @@ class CustomFunctionNameTest extends IntegrationTestCase {
 		$this->assertSame(GeoDistance::class, $this->getEntityManager()->getConfiguration()->getCustomNumericFunction('MY_GEO_DISTANCE'));
 	}
 
-	public function dataOverrideFunction(): array
+	public static function dataOverrideFunction(): array
     {
 		return self::duplicateTestDataForEachPlatform([
 			[],
