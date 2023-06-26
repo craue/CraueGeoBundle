@@ -36,8 +36,8 @@ jobs:
         # Docker Hub image
         image: postgres:latest
         # service environment variables
-        # `POSTGRES_HOST` is `postgres`
         env:
+          POSTGRES_HOST: 'localhost'
           POSTGRES_DB: test
           POSTGRES_PASSWORD: root
           POSTGRES_PORT: 5432
@@ -60,7 +60,8 @@ jobs:
     steps:
       - name: Set up MySQL
         run: |
-          sudo systemctl start mysql
+          #sudo systemctl start mysql
+          sudo /etc/init.d/mysql start
           mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
       # basically git clone
